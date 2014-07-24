@@ -1,6 +1,8 @@
+# netcat
+
 Low level send and receive TCP/UDP data.
 
-# nc
+## nc
 
 Executable name.
 
@@ -12,13 +14,13 @@ Make a TCP HTTP get request and print the response:
 
     printf 'GET / HTTP/1.0\r\n\r\n' | nc google.com 80
 
-# u
+## u
 
-# UDP
+## UDP
 
 UDP instead of TCP.
 
-# l
+## l
 
 Listen for requests made on a port.
 
@@ -54,7 +56,7 @@ To do multiple tests of what is being sent, just wrap in a while and give an emp
 
 If `-l` is given, then the hostname is optional. If the hostname is not given, `nc` listens on all interfaces (TODO confirm).
 
-# v
+## v
 
 Give more verbose output.
 
@@ -64,7 +66,7 @@ E.g., on `nc -l`, prints an extra line:
 
 before the request.
 
-# k
+## k
 
 Keep listing after the first connection instead of shutting down.
 
@@ -84,16 +86,16 @@ Terminal 1 has printed:
     abc
     def
 
-# echo server with nc
+## echo server with nc
 
 It does not seem possible to emulate an echo server with `nc`, only `ncat`: <http://stackoverflow.com/questions/8375860/echo-server-with-bash>
 
-# ncat
+## ncat
 
 `nc` version form `nmap` package.
 
 Options that it has and nc does not:
 
-## c
+### c
 
 Construct response with command.

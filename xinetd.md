@@ -1,3 +1,5 @@
+# xinetd
+
 Meaning: eXtended InterNET Deamon
 
 xinetd is the new version for inetd, thus the "extended".
@@ -16,7 +18,7 @@ The concept of service has POSIX support via functions such as `getservbyname`, 
 
 In Linux, services are listed under: `cat /etc/services`.
 
-# configuration
+## configuration
 
 The conf file is `/etc/xinetd.conf`, which usually includes those inside `/etc/xinetd.d/` to enable/disable certain services.
 
@@ -34,7 +36,7 @@ Now you can restart `xinetd` via
 
 if your system uses upstart.
 
-# add new external service
+## Add new external service
 
 Include this file under `xinet.d`:
 
@@ -47,7 +49,7 @@ Include this file under `xinet.d`:
        wait        = YES/NO            #yes = single-threaded, no = multithreaded
     }
 
-# check available services
+## Check available services
 
 You can check which services are current turned on via:
 
@@ -57,11 +59,11 @@ This will list all services, not only those provided by xinetd.
 
 You can get a list of the standard port services [here](http://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers).
 
-# test services
+## Test services
 
 You can use `nc` to read/write to sockets to test the different services.
 
-## echo
+### Echo
 
 Protocol repeats what was given:
 
@@ -71,7 +73,7 @@ Output: `a`
 
 Used to test the network.
 
-## discard
+### Discard
 
 Server does nothing:
 
@@ -79,7 +81,7 @@ Server does nothing:
 
 Used to test the network.
 
-## daytime
+### Daytime
 
 Returns the date and time of the day:
 
@@ -91,7 +93,7 @@ A sample output would be:
 
     20 JUN 2013 23:30:46 CEST
 
-## chargen
+### Chargen
 
 Server generates a fixed printable chars string repeatedly until client closes the connection:
 
@@ -99,7 +101,7 @@ Server generates a fixed printable chars string repeatedly until client closes t
 
 Used to test the network.
 
-## time
+### Time
 
 Time in seconds since 00:00 (midnight) 1 January, 1900 GMT as a c integer in network order:
 

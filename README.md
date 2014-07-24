@@ -1,9 +1,11 @@
+# Networking Tutorial
+
 Information on networking protocols and applications. E.g.: TCP/IP, email, Firefox, netstat, etc.
 
 Almost all OS specifics currently only discuss Linux.
 Additions of info for other OSs are welcome, under clearly delimited sections.
 
-# OSI vs IPS
+## OSI vs IPS
 
 Models for network protocols.
 
@@ -13,11 +15,11 @@ Both seem to contain more or less the same protocols, except that they are put i
 
 IPS is simpler to remember where each protocol goes since it has less layers.
 
-# IPS
+## IPS
 
 <http://en.wikipedia.org/wiki/Internet_protocol_suite>
 
-## Protocols in layers
+### Protocols in layers
 
 Each layer contains many protocols, each of which helps the layer achieve its functions
 
@@ -47,7 +49,7 @@ Some of the most common protocols in each layer are and the function of the laye
 
 To get a feeling for what each layer does, learn some of the most popular protocols of each of those layers.
 
-## Layer data structure
+### Layer data structure
 
 Each layer adds a header to the layer below containing its information:
 
@@ -68,7 +70,7 @@ Each layer adds a header to the layer below containing its information:
     - the Internet data
     - the Internet header
 
-## Example: browser fetches page
+### Example: browser fetches page
 
 A browser wants to make a typical HTTP request to a remove server to get a web page.
 
@@ -98,14 +100,14 @@ The router puts the Ethernet header...
 
 TODO continue. Add diagrams.
 
-# IP
+## IP
 
 Protocol that allows to:
 
 - assign addresses to network interfaces.
 - find path between one computer to another, possibly passing through many routers
 
-## IP header
+### IP header
 
 Learn what the IP header contains:
 
@@ -161,7 +163,7 @@ Fields by increasing interest / ease to understand ratio:
 
     Used for IP fragmentation.
 
-## IP fragmentation
+### IP fragmentation
 
 If a router will forward this packet to another interface, it may be that the MTU of the other interface be smaller than the previous one, and the package cannot be transmitted hole.
 
@@ -212,7 +214,7 @@ The fields used from the IP header  are:
     Identification numbers can be the same across multiple source IPs,
     but for a single source IPs they are unique.
 
-## IP address
+### IP address
 
 An unique address that identifies a host, for example a separate workstation.
 
@@ -232,11 +234,11 @@ This can be set in two ways:
 
 -   dynamically and automatically.
 
-### IP classes
+#### IP classes
 
 Each address has two parts: network part and host part.
 
-#### Example: network and host parts
+##### Example: network and host parts
 
 - 2 networks
 - 3 bytes for the network part
@@ -291,13 +293,13 @@ Most common home range is the Class C:
     192.168.0.1 through 192.168.255.254
     subnet mask 255.255.255.0
 
-### LAN IP
+#### LAN IP
 
-### Internal IP
+#### Internal IP
 
-### WAN IP
+#### WAN IP
 
-### External IP
+#### External IP
 
 If you use a router, your entire network has a single IP seen from the outside (WAN), and an internal IP for each interface seen on the private local network (LAN).
 
@@ -322,7 +324,7 @@ The server on the router is called **proxy server**.
 
 Internal IPs may be assigned automatically via the DHPC protocol.
 
-### Port forwarding
+#### Port forwarding
 
 By default, if a TCP / UDP SYN request is made to most routers, they are simply dropped.
 
@@ -332,9 +334,9 @@ To avoid this, you must set up *port forwarding*, that specifies certain ports a
 
 It seems only possible to do this if the local IP is static TODO confirm.
 
-### Subnet mask
+#### Subnet mask
 
-#### Get mask for an interface:
+##### Get mask for an interface:
 
     ifconfig wlan0 | sed -nr 's/.*Mask:([^ ]*)/\1/p'
 
@@ -357,9 +359,9 @@ All computers in the same network must have the same subnet mask and the same ne
 
 Each network (formally **network segment**) is run by a single router #TODO confirm
 
-### Special addresses
+#### Special addresses
 
-#### Zero host address
+##### Zero host address
 
 <http://serverfault.com/questions/135267/what-is-the-network-address-x-x-x-0-used-for>
 
@@ -367,7 +369,7 @@ If the entire host part is zero, then the address is used to refer to the networ
 
 It is used when several networks, one one a different router must speak to each other.
 
-### Default gateway
+#### Default gateway
 
 `0.0.0.0` network address in the routing table.
 
@@ -383,15 +385,15 @@ or for programmatic usage:
 
     route -n | awk '{ if( $1 ~ "0.0.0.0" ) print $2 }'
 
-### Broadcast address
+#### Broadcast address
 
 The host address is entirely composed of 1s.
 
 The broadcast address means talking to all computers on a given network at once instead of a single computer
 
-#### Examples
+##### Examples
 
-##### Class C network
+###### Class C network
 
 -   network part: `192.168.3`
 
@@ -401,19 +403,19 @@ The broadcast address means talking to all computers on a given network at once 
 
     Broadcast is: `192.168.3.255`
 
-##### Class A network
+###### Class A network
 
 - network part: `10`
 
     Broadcast is: `10.255.255.255`
 
-### .1 addresses
+#### .1 addresses
 
 The `.1` address is not special, but in home networks is often already taken by the router's inner interface
 
 This is why your addresses may start at `.2`.
 
-## NIC
+### NIC
 
 Network Interface Cards
 
@@ -423,11 +425,11 @@ Come mostly built-in the motherboard today.
 
 Each router has at least 2 NICs: one external and one internal.
 
-### get all interface names
+#### get all interface names
 
     ifconfig | perl -ne '/^(\S+)/ && print $1 . "\n"'
 
-## MAC
+### MAC
 
 AKA:
 
@@ -457,7 +459,7 @@ Get MAC addresses of computers I have already talked to in the LAN:
     timeout 3 ping 192.168.1.3
     arp -a | sed -nr 's/([^ ]*) .*at (.*)/\1 \2/p'
 
-# TCP vs UDP
+## TCP vs UDP
 
 Different protocols
 
@@ -469,13 +471,13 @@ For this reason, UDP has less overhead, but is only used when the transaction wi
 
 Some protocols include both a TCP and a UDP version, which may vary slightly while others only have either a TCP or an UDP version see <http://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers> for a listcounting acknowledge packages.
 
-## TCP
+### TCP
 
 Learn the TCP header:
 
 <http://en.wikipedia.org/wiki/Transmission_Control_Protocol#TCP_segment_structure>
 
-## ICMP
+### ICMP
 
 Internet control message protocol.
 
@@ -547,7 +549,7 @@ Examples of what ICMP can do:
 
     Sent by router to source if it receives a packet that is larger than the MTU and the IP header has `DF = 1`.
 
-## IGMP
+### IGMP
 
 Internet Group Message Protocol.
 
@@ -560,7 +562,7 @@ However IGMP is used to control multicasts only.
 
 IP protocol number: 2.
 
-# ping
+## ping
 
 CLI utility that sends ICMP echo requests to a server that accepts them.
 
@@ -574,7 +576,7 @@ Send an echo every second to monitor connectivity:
 
     ping www.google.com
 
-# traceroute
+## traceroute
 
 CLI utility that shows each step an IP package takes to reach a destination.
 
@@ -584,7 +586,7 @@ Example:
 
     traceroute www.google.com
 
-# tcpdump
+## tcpdump
 
 CLI utility that allows to visualize TCP packets sent and received.
 
@@ -605,7 +607,7 @@ Example:
 
     sudo tcpdump -SXn
 
-# tcpflow
+## tcpflow
 
 Show data send and read at a given port.
 
@@ -621,7 +623,7 @@ Sample usage:
 
     sudo tcpflow -i any -C -e port 1234
 
-# Wireshark
+## Wireshark
 
 Set of utilities that that capture (snif) TCP IP packages similarly to `tcpdump`.
 
@@ -629,7 +631,7 @@ Analyzes packages if possible, and presents them on a human readable way. For th
 
 Open source and cross platform (Linux and Windows).
 
-# netrc
+## netrc
 
 `$HOME/.netrc` is a config file that automates net logins (TODO: which type exactly of login?)
 
@@ -637,7 +639,7 @@ E.g.:
 
     machine code.google.com login <login> password <pass>
 
-# host
+## host
 
 A host is anything able to send and receive packages over a network: this includes workstations (computers) and routers.
 
@@ -646,7 +648,7 @@ Can be specified by either
 - an IP
 - a string that will be resolved by a DNS server to an IP
 
-## host user pair
+### host user pair
 
 A user may access a (system) computer from another computer using for example ssh.
 
@@ -654,7 +656,7 @@ To do so, he must be registered in the target computer.
 
 This is why user/host pairs are common: the host pair says from which computer user is trying to access his account.
 
-# hostname
+## hostname
 
 An alias for an IP, local or remote.
 
@@ -671,7 +673,7 @@ It is not a good idea to have a dot `.` in your domain name, since then how coul
 
 TODO is the hostname `www.google.com` or just `google.com`? Contradictory answers: <http://superuser.com/questions/59093/difference-between-host-name-and-domain-name>
 
-## www
+### www
 
 `www.google.com` and `google.com` can lead to different IPs.
 
@@ -692,13 +694,13 @@ As of early 2014:
 - `facebook.com` redirects to `www.facebook.com`
 - `google.com` redirects to `www.google.com`
 
-## localhost
+### localhost
 
 Host that refers to the computer itself, specially for testing purposes.
 
 Corresponds to a virtual device called the loopback interface.
 
-# Domain name
+## Domain name
 
 E.g.: `google.com`, `stackoverflow.com` are commonly called domain names.
 
@@ -708,17 +710,17 @@ They identify a network owned by Google. But in order to get an actual IP, you s
 
 Domain names may contain more than one `.`: `bbc.co.uk`.
 
-## Subdomain
+### Subdomain
 
 The subdomain can include a period (.) but not as the first or last character. Consecutive periods (...) are not allowed. A subdomain cannot exceed 25 characters.
 
-## example.com
+### example.com
 
 <http://example.com> is a test domain reserved by IANA.
 
 It is a serves as a great URL placeholder on simple examples.
 
-# Top level domain
+## Top level domain
 
 `.com`, `.net`, `.io`, `.fr` are examples.
 
@@ -740,7 +742,7 @@ Some interesting ones:
 Some country ones have become generic: `.io` is a notable example,
 popular amongst startups as of 2014-03. Short, sounds good, reminds of IO input output.
 
-# DHCP
+## DHCP
 
 Dynamic Host Configuration Protocol.
 
@@ -756,7 +758,7 @@ It must first send a DHCP request to be assigned an IP.
 
 The server usually (TODO always?) runs in the router, and can be configured from the router's interface.
 
-# Static IP
+## Static IP
 
 On a home network that you control, it is better to use intuitive hostnames
 and let the addresses be dynamically set via DHPC, unless you absolutely need a static IP,
@@ -773,7 +775,7 @@ allowing for 8 small static IPs between 2 and 9, 1 being the router's address.
 
 On Ubuntu 12.04, there are a few ways of doing it.
 
-## Static IP with DHCP reservation
+### Static IP with DHCP reservation
 
 This is not strictly static, but it is the simplest option.
 
@@ -787,7 +789,7 @@ Set the interface to use DHCP.
 
 The assigned address must be in the DHCP range.
 
-## Static IP with NetworkManager
+### Static IP with NetworkManager
 
 Using the NetworkManager GUI:
 
@@ -797,7 +799,7 @@ Select connection > Edit > IPv4 settings, configure.
 
 TODO fails. I lose internet connection on the interface
 
-## Static IP with NetworkManager
+### Static IP with NetworkManager
 
 Using `/etc/network/interfaces`:
 
@@ -822,7 +824,7 @@ Set the file to:
 
 TODO fails. I lose internet connection on the interface
 
-# hosts file
+## hosts file
 
 Located at:
 
@@ -852,13 +854,13 @@ Undo that, its silly:
 
     sudo sed -i "$ d" /etc/hosts
 
-## windows
+### windows
 
 The file is:
 
     C:\Windows\System32\Drivers\Etc\hosts
 
-# DNS
+## DNS
 
 Domain Name System.
 
@@ -878,7 +880,7 @@ Linux systems usually offer `man resolver` C library interface,
 which any program can use to resolve DNS names.
 The resolver library may cache results across applications that have already been resolved.
 
-## DNS on WAN
+### DNS on WAN
 
 On the Internet, hostnames are resolved to IPs by DNS servers.
 
@@ -886,7 +888,7 @@ You must pay to reserve hostnames so they can be resolved to the IP of your choi
 
 TODO how to DNS servers find out all the hostnames in the world?
 
-## DNS on LAN
+### DNS on LAN
 
 DNS can also be done for local networks:
 
@@ -907,7 +909,7 @@ Mary is on the same network. Therefore, she can refer to `john` simply as `john`
 
 TODO if many people set up the same hostname, then what?
 
-## host utility
+### host utility
 
 Get IP for a given hostname:
 
@@ -917,7 +919,7 @@ Sample output:
 
     173.194.78.105
 
-## resolv.conf
+### resolv.conf
 
     cat /etc/resolv.conf
 
@@ -931,7 +933,7 @@ On Ubuntu 12.04, you should never edit that file manually. By default it contain
 
 which is localhost, and is used indirectly by the NetworkManger system, which you should use instead.
 
-## hostname utility
+### hostname utility
 
 Print currently desired hostname:
 
@@ -948,108 +950,96 @@ Change hostname for cur session:
 
 prompt `PS1` is not changed immediately.
 
-## Change hostname permanently
+### Change hostname permanently
 
     h=
     echo "$h" | sudo tee /etc/hostname
 
-### Windows
+#### Windows
 
 Host is referred to as "computer name". Good name choice, that is exactly what host is.
 
     wmic computersystem where name="%COMPUTERNAME%" call rename name="NEW-NAME"
 
-## Reverse DNS
+### Reverse DNS
 
 Protocol that transforms an IP into a hostname.
 
 Not always supported on all DNS servers.
 
-## dig
+### dig
 
 CLI utility that shows complete path of domain to IP resolution, as it passes through multiple CNAMEs.
 
 TODO
 
-## Zone file
+### Zone file
 
 When you register for a domain of your own, you will start thinking about this:
 it is the main setting on your registrar interface.
 
 <http://en.wikipedia.org/wiki/Zone_file>
 
-### apex domain
+#### apex domain
 
 `@` in the zone file means the domain you own without any subdomain.
 
 E.g., if you own `cirosantilli.com`, `@` means `cirosantilli.com` itself,
 while `www` means `www.cirosantilli.com`.
 
-Apex domains are more restrictive than subdomains,
-and certain hosting services advise against it, such as GitHub Pages.
+Apex domains are more restrictive than subdomains, and certain hosting services advise against it, such as GitHub Pages.
 
-The main problem is that in services such as GitHub pages you don't get an actual IP,
-so you can't point the Apex to an IP (which is simple),
-and the `CNAME` "workaround" is not good enough in that case.
+The main problem is that in services such as GitHub pages you don't get an actual IP, so you can't point the Apex to an IP (which is simple), and the `CNAME` "workaround" is not good enough in that case.
 
-### naked domain
+#### naked domain
 
 The apex domain is sometimes called naked domain, since it has no subdomain.
 
-## CNAME record
+### CNAME record
 
 TODO File that tells DNS to redirect to another domain name, creating an alias.
 
 <http://en.wikipedia.org/wiki/CNAME_record>
 
-## A
+### A
 
 Points a domain to an IP. The final part of the resolution.
 
-## DDNS
+### DDNS
 
 Dynamic DNS.
 
 A way to update DNS as IPs change.
 
-Useful for example if you want to give a hostname for your home network,
-in which the IP is dynamic for most ISPs.
-A DDNS service like <http://www.noip.com> can give you a persistent hostname anyways.
+Useful for example if you want to give a hostname for your home network, in which the IP is dynamic for most ISPs. A DDNS service like <http://www.noip.com> can give you a persistent hostname anyways.
 
 TODO what is it exactly? How does it work? A protocol? Part of DNS?
 
-# Port
+## Port
 
-Once you have determined a host (computer), you still have to talk to one of the specific programs
-running on that computer.
+Once you have determined a host (computer), you still have to talk to one of the specific programs running on that computer.
 
 Each program listens on an specific port which is set by convention.
 
-Ports from 1 - 1023 are also known as "well-known ports" or "privileged ports".
-On UNIX-like systems, only privileged users (`root`) can bind to those ports.
-All have reserved or standardized functions by an organization called IANA:
-<http://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers>.
+Ports from 1 - 1023 are also known as "well-known ports" or "privileged ports". On UNIX-like systems, only privileged users (`root`) can bind to those ports. All have reserved or standardized functions by an organization called IANA: <http://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers>.
 
-The ports form 1024 to 49151 are the so called "registered ports".
-Projects can make a request to IANA to register one of those posts
-as used in order to avoid port clashes.
-On most systems, it is possible to bind to those ports without `sudo`.
+The ports form 1024 to 49151 are the so called "registered ports". Projects can make a request to IANA to register one of those posts as used in order to avoid port clashes. On most systems, it is possible to bind to those ports without `sudo`.
 
 There are 2 ports number 10: `10/tcp` and `10/udp`, each for a different protocol.
 
 On POSIX systems, ports are typically implemented via sockets.
 
-## Read and write to a port from the command line
+### Read and write to a port from the command line
 
 You can write to a port in many ways using the command line.
 
-# Router
+## Router
 
 Routers send packages from one place to another.
 
 Most routers will have at least two network interfaces, one on each network.
 
-## Configure you router
+### Configure you router
 
 If you want to play around with routers, you should get your hands dirty and do some router configuring.
 
@@ -1057,13 +1047,11 @@ Routers are generally configured through a browser.
 
 First you must make a wired connection to the router.
 
-You must enter the IP address of your router. This is fixed and supplied by the router manufacturer.
-A common address is the first address of the range: `192.168.0.1` for class C.
+You must enter the IP address of your router. This is fixed and supplied by the router manufacturer. A common address is the first address of the range: `192.168.0.1` for class C.
 
-You must then enter a username and a password. A default will be supplied by the manufacturer,
-such as `admin` `admin`, or `admin` `password`. This can be changed once you logged in.
+You must then enter a username and a password. A default will be supplied by the manufacturer, such as `admin` `admin`, or `admin` `password`. This can be changed once you logged in.
 
-## Routing table
+### Routing table
 
 Great LAN routing example: <http://en.wikipedia.org/wiki/Default_gateway>
 
@@ -1073,24 +1061,23 @@ Routing tables say: if the request should go to a given network, send it to a gi
 
 Routers have two interfaces each: inside and outside.
 
-# ARP
+## ARP
 
 Address Resolution Protocol.
 
 Only used when the sender detects that the searched IP is on the same network as itself.
 
-In that case, it can simply get the destination MAC address and send the packages over the LAN
-directly to the destination without passing through the router.
+In that case, it can simply get the destination MAC address and send the packages over the LAN directly to the destination without passing through the router.
 
 ARP is a protocol that does just that: it finds the MAC address from an IP on a LAN.
 
-## ARP table
+### ARP table
 
 Cache that caches previously resolved IP to MAC addresses so that ARP requests don't need to be made every time.
 
 Also known as: ARP cache, MAC cache.
 
-## arp utility
+### arp utility
 
 CLI utility that shows the ARP table.
 
@@ -1099,7 +1086,7 @@ so first ping that computer:
 
     timeout 3 ping 192.168.1.3; arp -a
 
-# route utility
+## route utility
 
 View kernel routing table:
 
@@ -1109,7 +1096,7 @@ Numeric instead of names:
 
     route -n
 
-# whois
+## whois
 
 Check info about IP, country, ISP:
 
@@ -1117,10 +1104,9 @@ Check info about IP, country, ISP:
 
     whois `curl ifconfig.me`
 
-# Network management tools
+## Network management tools
 
-There are several levels of network management tools:
-<http://askubuntu.com/questions/1786/what-is-the-difference-between-network-manager-and-ifconfig-ifup-etc>.
+There are several levels of network management tools: <http://askubuntu.com/questions/1786/what-is-the-difference-between-network-manager-and-ifconfig-ifup-etc>.
 
 From the lowest level to the highest:
 
@@ -1128,7 +1114,7 @@ From the lowest level to the highest:
 - `ifup` and `ifdown`
 - NetworkManager
 
-# ifconfig
+## ifconfig
 
 Network InterFace configuration tool.
 
@@ -1150,26 +1136,25 @@ Get local IPs (behind router):
 
 `wlan0` and `eth0` are two different interfaces!
 
-# iwconfig
+## iwconfig
 
 Wireless network configuration
 
-# ifup
+## ifup
 
-# ifdown
+## ifdown
 
 TODO
 
-## /etc/network/interfaces
+### /etc/network/interfaces
 
 Configuration for `ifup` and `ifdown`.
 
     man interfaces
 
-If you manually set configuration on `/etc/network/interfaces`,
-NetworkManager will now touch those interfaces and display them as "Not Managed".
+If you manually set configuration on `/etc/network/interfaces`, NetworkManager will now touch those interfaces and display them as "Not Managed".
 
-# NetworkManager
+## NetworkManager
 
 GNOME project for simplifying network configuration. <https://wiki.gnome.org/Projects/NetworkManager>
 
@@ -1177,20 +1162,19 @@ Also has an Applet that shows on Ubuntu 12.04's taskbar, indicating connection s
 
 On Ubuntu it comes on the packages `network-manager` and `network-manager-gui` for the applet.
 
-It corresponds to the upstart service `network-manager`,
-so for example to reload configurations it can be restarted with:
+It corresponds to the upstart service `network-manager`, so for example to reload configurations it can be restarted with:
 
     sudo service network-manager restart
 
-## nm-applet
+### nm-applet
 
 The applet.
 
-## nm-connection-editor
+### nm-connection-editor
 
 Opened from the applet "Edit Connections".
 
-## nm-tool
+### nm-tool
 
 Get NetworkManager status from the command line. Sample output:
 
@@ -1253,7 +1237,7 @@ Get NetworkManager status from the command line. Sample output:
         DNS:             89.2.0.1
         DNS:             89.2.0.2
 
-## nmcli
+### nmcli
 
 Control NetworkManger from CLI.
 
@@ -1266,9 +1250,9 @@ Bring it back up:
 
     nmcli con up id 'Wired connection 1'
 
-## /etc/NetworkManager/system-connections/NUMERICABLE-B2BD
+### /etc/NetworkManager/system-connections/NUMERICABLE-B2BD
 
-## configuration file
+### configuration file
 
 NetworkManager's configuration files:
 
@@ -1278,7 +1262,7 @@ one per interface.
 
 Modified through the applet.
 
-# MTU
+## MTU
 
 <http://en.wikipedia.org/wiki/Maximum_transmission_unit>
 
@@ -1288,7 +1272,7 @@ Maximum packet size that can be transmitted over a physical link.
 
 Varies across different link technologies.
 
-# nmap
+## nmap
 
 Show open ports, state and service name associated to the port.
 
@@ -1314,7 +1298,7 @@ View UDP ports:
 
     sudo nmap -sU localhost
 
-# netstat
+## netstat
 
 Shows lots of POSIX sockets info.
 
@@ -1322,11 +1306,9 @@ Get list PID and program name of programs using ports.
 
 Shows both TCP/UDP Internet connections and UNIX domain sockets.
 
-In short: Internet connections are done via sockets whose address is given by an IP and a port number,
-and can communicate across computers
+In short: Internet connections are done via sockets whose address is given by an IP and a port number, and can communicate across computers
 
-UNIX domain sockets are only for local communication.
-They are put into the filesystem and identified by a path on the filesystem
+UNIX domain sockets are only for local communication. They are put into the filesystem and identified by a path on the filesystem
 
 When a program uses a socket, it binds to it, and other programs cannot use it.
 
@@ -1347,7 +1329,7 @@ Sample output for Internet section:
     Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
     tcp        0      0 localhost:32842         localhost:48553         ESTABLISHED 3497/GoogleTalkPlug
 
-# Telnet
+## Telnet
 
 Protocol for communicating between servers and name of command line tool that uses it.
 
@@ -1378,7 +1360,7 @@ also consider:
 - `nc`
 - `socat`
 
-# Samba
+## Samba
 
 Open source Linux implementation of the SMB/CIFS networking protocol used by default on Windows.
 
@@ -1386,9 +1368,9 @@ It allows for file, printer and driver sharing on a network.
 
 Best option for cross platform file transfers.
 
-# Browser
+## Browser
 
-## Firefox
+### Firefox
 
 Search with default engine:
 
@@ -1398,41 +1380,41 @@ Starts with disabled extensions in case they are causing a crash:
 
     firefox -safe-mode
 
-## Chrome
+### Chrome
 
 Some websites run neither on Firefox nor Chromium, only Chrome.
 
 To have multiple chrome profiles do:
 
-## w3m
+### w3m
 
 ncurses web browser!
 
 Might save you if X goes down or if you can't have it.
 
-# Files
+## Files
 
 TODO
 
-## /etc/protocols
+### /etc/protocols
 
-## /etc/services
+### /etc/services
 
-## /etc/udev/rules.d/70-persistent-net.rules
+### /etc/udev/rules.d/70-persistent-net.rules
 
-# Deployment
+## Deployment
 
-## Zymic
+### Zymic
 
 Free PHP.
 
 Did not work well with WordPress, probably some PHP restrictions.
 
-## 000
+### 000
 
 Worked for WordPress.
 
-## OpenShift
+### OpenShift
 
 Open source.
 
@@ -1454,7 +1436,7 @@ Start app (apps are stopped by default):
 
     sudo gem install rhc
 
-# VPN
+## VPN
 
 TODO get working
 
@@ -1470,37 +1452,35 @@ Servers:
 
 - <http://www.vpnbook.com/#pricing>
 
-# TLS
+## TLS
 
 Transport Layer Security.
 
 Encryption methods that encrypt the transport layer traffic.
 
-# SSL
+## SSL
 
 Predecessor of TLS.
 
-# Web server vs app server
+## Web server vs app server
 
 It is hard to distinguish them.
 
 Generally, web server only speaks HTTP and serves static pages.
 
-An app server, reads the HTTP, and then decides to pass the request on to a programming language
-like Ruby or Python if it cannot deal with it himself through an interface such as CGI.
+An app server, reads the HTTP, and then decides to pass the request on to a programming language like Ruby or Python if it cannot deal with it himself through an interface such as CGI.
 
-In most production environments, the server knows which files it can serve directly
-without going through a script, making thing faster.
+In most production environments, the server knows which files it can serve directly without going through a script, making thing faster.
 
 Applications like Apache and Nginx.
 
-# Sources
+## Sources
 
-## Free
+### Free
 
 - <http://www.aboutdebian.com/network.htm>
 
-## Non free
+### Non free
 
 [ste12]: http://www.amazon.com/TCP-Illustrated-Volume-Addison-Wesley-Professional/dp/0321336313
 

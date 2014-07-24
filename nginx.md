@@ -1,3 +1,5 @@
+# Nginx
+
 App / web server with similar capabilities to Apache.
 
 Very used by the Rails community.

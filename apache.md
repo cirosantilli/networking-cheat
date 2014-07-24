@@ -1,10 +1,12 @@
+# Apache
+
 Cheat on the apache server.
 
 Test apache:
 
     firefox http://localhost/ &
 
-# Introduction
+## Introduction
 
 Apache is a web server
 
@@ -16,7 +18,7 @@ Then it takes the http request, processes it, and then returns the request to th
 
 Part of the processing may be passed to another program: typically a <#cgi> script
 
-# Test preparations
+## Test preparations
 
 Before doing anything, make this test dir:
 
@@ -55,7 +57,7 @@ The user under which the web server runs must have read access to this directory
 
 Usually this user is a different user from `root` for sercurity.
 
-# conf file
+## conf file
 
 Ubuntu default location for the configuration file:
 
@@ -74,7 +76,7 @@ Configurations only apply when you restart apache:
 
     sudo service apache2 restart
 
-# minimum conf file
+## minimum conf file
 
 The bare minimum conf file to get a file served is:
 
@@ -85,7 +87,7 @@ The bare minimum conf file to get a file served is:
 
 This conf may be useful for testing server configuration.
 
-# default operation
+## default operation
 
 "web subdirs" map directly to local dirs.
 
@@ -105,7 +107,7 @@ If no index is contained, apache generates an html index:
 
     firefox localhost/test/noindex/
 
-## DocumentRoot
+### DocumentRoot
 
 Set Apache serve root at given dir:
 
@@ -117,7 +119,7 @@ For security concerns, only put things you want apache to serve directly inside 
 
 Stuff that users should not see such as cgi scripts and *gasp* ssl certificates are better to remain outside it, so that you don't serve them by mistake!
 
-## Listen
+### Listen
 
 Listen those ports on all interfaces (for example, first wireless card, first ethernet card, etc...):
 
@@ -131,13 +133,13 @@ Listen those ports on given interfaces:
     Listen 192.0.2.1:80
     Listen 192.0.2.5:8000
 
-## AccessFileName
+### AccessFileName
 
 Name of the file which can modify access properties of a directory.
 
     AccessFileName .htaccess
 
-## AllowOverride
+### AllowOverride
 
 Allows the `.htaccess` to override certain directives of earlier conf files.
 
@@ -149,7 +151,7 @@ Allow to override no directories (the ifle is ignored):
 
     AllowOverride None
 
-## Include
+### Include
 
 Copy paste Include other apache conf files or entire directories
 into the current configuration:
@@ -157,14 +159,14 @@ into the current configuration:
     Include file.conf
     Include conf-d
 
-## Deny
+### Deny
 
 Deny access from given host
 
     Deny from 10.252.46.165
     Deny from host.example.com
 
-## DirectoryIndex
+### DirectoryIndex
 
 What to do when user acesses a directory location:
 
@@ -189,7 +191,7 @@ in case none of those actions match, the default is for
 
 for specific dirs, use the `Directory` directive
 
-### mod_autoindex
+#### mod_autoindex
 
 Generates automatic html listings for dirs
 
@@ -224,17 +226,17 @@ Use given CSS style:
 
     IndexStyleSheet /css/autoindex.css
 
-# VirtualHost
+## VirtualHost
 
 Allows to host many DNS names on a single IP.
 
-# sections
+## sections
 
 Sections are commands which restrict the scope of application of other configurations.
 
 The official manual page: <http://httpd.apache.org/docs/2.2/sections.html#mergin>
 
-## Files
+### Files
 
 Acts on local filesystem.
 
@@ -248,7 +250,7 @@ Deny file permissions for files that match regex `"^\.ht"`:
 
 Order says: first process all allow directives, then all deny directives. Since `Deny` came last, it has precedence.
 
-## Directory
+### Directory
 
 Acts on local filesystem
 
@@ -256,7 +258,7 @@ Acts on local filesystem
     Options +Indexes
     </Directory>
 
-## Location
+### Location
 
 Applies configuration to URL addresses:
 
@@ -265,7 +267,7 @@ Applies configuration to URL addresses:
         Deny from all
     </LocationMatch>
 
-## combine sections
+### combine sections
 
 It is possible to combine multiple section scopes:
 
@@ -276,24 +278,24 @@ It is possible to combine multiple section scopes:
         </Files>
     </Directory>
 
-## IfDefine
+### IfDefine
 
     <IfDefine ClosedForNow>
         Redirect / http://otherserver.example.com/
     </IfDefine>
 
-## IfVersion
+### IfVersion
 
     <IfVersion >= 2.1>
         this happens only in versions greater or
         equal 2.1.0.
     </IfVersion>
 
-# alias
+## alias
 
 Allow to create virtual paths to dirs and files.
 
-## sources
+### sources
 
 Man: <http://httpd.apache.org/docs/2.2/mod/mod_alias.html>
 
@@ -323,7 +325,7 @@ Also works outside of serve root:
 
     firefox localhost/test/alias-out-root
 
-## first match takes precedence
+### first match takes precedence
 
     Alias /test/alias/a /var/www/test
     Alias /test/alias   /var/www/test
@@ -344,7 +346,7 @@ BAD: both go to `test/index.html`:
     firefox localhost/test/alias/  &
     firefox localhost/test/alias/a &
 
-## Redirect
+### Redirect
 
 Returns a redirect HTTP response. Takes precedence over aliases.
 
@@ -355,7 +357,7 @@ The following goes to google:
 
     firefox localhost/test/redir &
 
-## CGI
+### CGI
 
 **CGI** is a protocol of how a server communicates with a CGI script.
 
@@ -365,13 +367,13 @@ This part includes some last header lines which the server delegates to it, nota
 
 The server passes information to the script through environment variables only.
 
-### fastcgi
+#### fastcgi
 
 A faster version of CGI that does not start a new process pre request
 
 Implementations: mod_fastcgi vs mod_fcgid <http://superuser.com/questions/228173/whats-the-difference-between-mod-fastcgi-and-mod-fcgid>
 
-### ScriptAlias
+#### ScriptAlias
 
 The script:
 
@@ -388,7 +390,7 @@ The script:
     ' > sudo tee /usr/lib/cgi-bin/test.pl
     sudo chmod +x /usr/lib/cgi-bin/test.pl
 
-#### status
+##### status
 
 Optional, if not given supposes `200 OK`.
 
@@ -396,7 +398,7 @@ If given as error, server will simply give the error and no data.
 
 Uncomment the status line on the test script to see what happens.
 
-#### alias to dir
+##### alias to dir
 
 CGI scripts must be in the dir specified by script alias:
 
@@ -430,7 +432,7 @@ Can also make individual script:
 
     ScriptAlias /test/cgi-file /usr/lib/cgi-bin/test.pl
 
-#### alias to script
+##### alias to script
 
 All subdirs of `testpl` are generated by the given `test.pl`:
 
@@ -439,7 +441,7 @@ All subdirs of `testpl` are generated by the given `test.pl`:
     firefox localhost/testpl/       &
     firefox localhost/testpl/a.html &
 
-### action
+#### action
 
 Run script whenever an HTML file is accessed:
 
@@ -454,7 +456,7 @@ Try it:
 
 This is how PHP does it!
 
-# modules
+## modules
 
 Apache plugins are called modules
 
@@ -478,7 +480,7 @@ Load a module:
 - 1: module identifier hard coded in module?
 - 2: full path to .so
 
-## a2enmodule
+### a2enmodule
 
 Apache2 ENable Module.
 
@@ -494,7 +496,7 @@ Enable a module:
 
     sudo a2enmod $MODULE_NAME
 
-# handlers
+## handlers
 
 Part of the very default mime_module
 
@@ -510,19 +512,19 @@ Example:
 
 Handlers can be defined in modules
 
-# authentication
+## authentication
 
 You must chose *both* one <#method> and one <#provider>!
 
-## methods
+### methods
 
-### prerequisites
+#### prerequisites
 
 First understand HTTP authentication.
 
 What algorithm is used to store the passwords more or less safely.
 
-### basic authentication
+#### basic authentication
 
 Provided by `mod_auth_basic`
 
@@ -538,7 +540,7 @@ Apache conf:
         AllowOverride None
     </Directory>
 
-### digest
+#### digest
 
 Provided by `mod_auth_digest`.
 
@@ -554,19 +556,19 @@ Provided by `mod_auth_digest`.
         AllowOverride None
     </Directory>
 
-## provider
+### provider
 
 What type of storage is used for user password pairs
 
 Is specified by the `AuthBasicProvider` directive.
 
-### file
+#### file
 
 A plain text file
 
 Safer to put outside serve root
 
-#### htpasswd
+##### htpasswd
 
 Generates `.htpasswd` files
 
@@ -585,11 +587,11 @@ Lets take a look at the file:
 
 Note that the passwords are base64 encoded.
 
-### dbd
+#### dbd
 
 SQL database
 
-# Try it out!!
+## Try it out!!
 
 Test:
 
@@ -597,7 +599,7 @@ Test:
 
 Try u and u2 pass p!
 
-## browser cache
+### browser cache
 
     firefox localhost/test/auth &
     firefox localhost/test/auth &
@@ -619,7 +621,7 @@ With pass:
 
 of course, better using the `-u` option which could work also for different authentication methods.
 
-# PHP
+## PHP
 
 Interpreter language almost always run from a server to generate web content.
 

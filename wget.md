@@ -1,40 +1,42 @@
+# wget
+
 Retrieve content from networks via several protocols.
 
 Not POSIX, and there is no POSIX 7 alternative: <http://stackoverflow.com/questions/9490872/is-wget-or-similar-programs-always-available-on-posix-systems>
 
 Use this for recursive site download only, and the more advanced curl for other tasks.
 
-- `-O` output filename for the fetched data only.
+-   `-O` output filename for the fetched data only.
 
     `-` for stdout.
 
     Defaults to the last path component, e.g.: `http://a.com/b.html` generates `b.html`.
 
-- `-o` log filename.
+-   `-o` log filename.
 
     Defaults to stderr.
 
     Common usage to 
 
-- `-E` `--adjust-extension`
+-   `-E` `--adjust-extension`
 
     Converts for example `*.php?key=val` pages to `.php?key=val.html` while keeping `*.css` extension untouched
 
-- `--cut-dirs=2`: similar to -nd, but only does nd up to given level.
+-   `--cut-dirs=2`: similar to -nd, but only does nd up to given level.
 
-- `-k`: convert links to local if local has been downloaded.
+-   `-k`: convert links to local if local has been downloaded.
 
-- `-l` 5: `-r` depth
+-   `-l` 5: `-r` depth
 
-- `-l` inf.
+-   `-l` inf.
 
-- `-m`: mirror options. same as "-r -N -l inf --no-remove-listing".
+-   `-m`: mirror options. same as "-r -N -l inf --no-remove-listing".
 
-- `-nd`: don't make sub directories, even if they existed on original site.
+-   `-nd`: don't make sub directories, even if they existed on original site.
 
-- `-np`: don't recurse into parent dirs.
+-   `-np`: don't recurse into parent dirs.
 
-- `-nH`: don't make a dir structure starting at host.
+-   `-nH`: don't make a dir structure starting at host.
 
     Default: `wget http://www.abc.com/a/b/c`
 
@@ -46,31 +48,31 @@ Use this for recursive site download only, and the more advanced curl for other 
 
     Creates only: a/b/c
 
-- `-p`: page requisites: CSS, images.
+-   `-p`: page requisites: CSS, images.
 
-- `-r`: follow links on page and downloads them.
+-   `-r`: follow links on page and downloads them.
 
     Default: `5`
 
-- `-L`: follow relative links only
+-   `-L`: follow relative links only
 
-- `--user-agent="Mozilla/5.0` (X11; U; Linux i686; en-US; rv:1.9.0.3) Gecko/2008092416 Firefox/3.0.3"
+-   `--user-agent="Mozilla/5.0` (X11; U; Linux i686; en-US; rv:1.9.0.3) Gecko/2008092416 Firefox/3.0.3"
 
-- `-A`: accept patterns.
+-   `-A`: accept patterns.
 
     If *, ? or [] appear on expression, matches basename only
 
     Else, suffix (.mp3 will work)
 
-- `-R`: reject, opposite of A
+-   `-R`: reject, opposite of A
 
-- `-X`: exclude dir
+-   `-X`: exclude dir
 
-- `-I`: include dir
+-   `-I`: include dir
 
-- `-N`: timestamping. Only down if newer than already downloaded.
+-   `-N`: timestamping. Only down if newer than already downloaded.
 
-# combos
+## Combos
 
 Setup:
 

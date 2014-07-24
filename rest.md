@@ -1,3 +1,5 @@
+# REST APIs
+
 REST is an HTTP API style.
 
 This shall discuss common design patterns for such APIs.
@@ -7,9 +9,9 @@ Good way to learn: see famous APIs:
 - GitHub: <https://developer.github.com/v3/>
 - Dropbox: <https://www.dropbox.com/developers/core/docs>
 
-#  File upload
+##  File upload
 
-##  Together with other data
+###  Together with other data
 
 Taken from this [discussion](http://feedback.gitlab.com/forums/176466-general/suggestions/3865548-api-to-attach-attachments-to-notes-issue-comments) on how to attack files to comments from API.
 
@@ -46,7 +48,7 @@ Possibilities:
 
   Best way to do it: <http://stackoverflow.com/questions/1443158/binary-data-in-json-string-something-better-than-base64>
 
-#  Pagination
+##  Pagination
 
 GitHub v3: link header as:
 
