@@ -1,32 +1,7 @@
-Networking protocols and applications. E.g.: TCP/IP, email, Firefox, netstat, etc.
+Information on networking protocols and applications. E.g.: TCP/IP, email, Firefox, netstat, etc.
 
-Almost all OS specifics currently only discuss for Linux, but additions of other OSs are welcome.
-
-#Sources
-
-##Free
-
-- <http://www.aboutdebian.com/network.htm>
-
-##Non free
-
-[ste12]: http://www.amazon.com/TCP-Illustrated-Volume-Addison-Wesley-Professional/dp/0321336313
-
--   [stevens - 2012 - tcp ip illustrate volume 1 2nd edition][ste12]
-
-    Extremely clear and exemplified.
-
-    Gives due emphasis to the key points.
-
-    Great first book.
-
-[dos06]: http://www.amazon.com/Understanding-TCP-IP-ebook/dp/B007TUYE0G/
-
--   [dostalek - 2006 - Understanding tcp ip][dos06]
-
-    Explains the most important Internet protocol suite protocols deeply.
-
-    Might not be the best first TCP IP book because it is a bit advanced, but it is a very good second one if you know the basics.
+Almost all OS specifics currently only discuss Linux.
+Additions of info for other OSs are welcome, under clearly delimited sections.
 
 #OSI vs IPS
 
@@ -1518,3 +1493,29 @@ In most production environments, the server knows which files it can serve direc
 without going through a script, making thing faster.
 
 Applications like Apache and Nginx.
+
+#Sources
+
+##Free
+
+- <http://www.aboutdebian.com/network.htm>
+
+##Non free
+
+[ste12]: http://www.amazon.com/TCP-Illustrated-Volume-Addison-Wesley-Professional/dp/0321336313
+
+-   [stevens - 2012 - tcp ip illustrate volume 1 2nd edition][ste12]
+
+    Extremely clear and exemplified.
+
+    Gives due emphasis to the key points.
+
+    Great first book.
+
+[dos06]: http://www.amazon.com/Understanding-TCP-IP-ebook/dp/B007TUYE0G/
+
+-   [dostalek - 2006 - Understanding tcp ip][dos06]
+
+    Explains the most important Internet protocol suite protocols deeply.
+
+    Might not be the best first TCP IP book because it is a bit advanced, but it is a very good second one if you know the basics.
