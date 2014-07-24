@@ -16,8 +16,6 @@ Use this for recursive site download only, and the more advanced curl for other 
 
     Defaults to stderr.
 
-    Common usage to 
-
 -   `-E` `--adjust-extension`
 
     Converts for example `*.php?key=val` pages to `.php?key=val.html` while keeping `*.css` extension untouched
@@ -30,7 +28,7 @@ Use this for recursive site download only, and the more advanced curl for other 
 
 -   `-l` inf.
 
--   `-m`: mirror options. same as "-r -N -l inf --no-remove-listing".
+-   `-m`: mirror options. same as `-r -N -l inf --no-remove-listing`.
 
 -   `-nd`: don't make sub directories, even if they existed on original site.
 
@@ -60,9 +58,9 @@ Use this for recursive site download only, and the more advanced curl for other 
 
 -   `-A`: accept patterns.
 
-    If *, ? or [] appear on expression, matches basename only
+    If `*`, `?` or `[]` appear on expression, matches basename only.
 
-    Else, suffix (.mp3 will work)
+    Else, suffix (`.mp3` will work).
 
 -   `-R`: reject, opposite of A
 
@@ -70,7 +68,7 @@ Use this for recursive site download only, and the more advanced curl for other 
 
 -   `-I`: include dir
 
--   `-N`: timestamping. Only down if newer than already downloaded.
+-   `-N`: only download if newer than already downloaded.
 
 ## Combos
 
@@ -90,7 +88,7 @@ Don't take PDFs, zips and RARs:
 
     wget -R *.pdf -R *.zip -R *.rar -E -k -l inf -np -p -r "$u"
 
-Only take, html, css, and images
+Only take HTML, CSS and images
 
     wget -A *.html -A *.css -A *.php -A *.gif -A *.png -A *.jpg -E -k -l inf -np -p -r "$u"
 

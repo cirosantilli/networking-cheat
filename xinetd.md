@@ -1,6 +1,6 @@
 # xinetd
 
-Meaning: eXtended InterNET Deamon
+Meaning: `eXtended InterNET Deamon`.
 
 xinetd is the new version for inetd, thus the "extended".
 
@@ -12,19 +12,19 @@ One of the advantages of using xinetd is that a single process needs to run, and
 
 A service is something provided by a server on a certain identifier such as a IP/port/protocol or UNIX socket.
 
-Services can be either builtint into xinetd (internal services), or provided by some executable which xinetd accesses.
+Services can be either built-in into xinetd (internal services), or provided by some executable which xinetd accesses.
 
 The concept of service has POSIX support via functions such as `getservbyname`, however POSIX does not specify which programs shall make the services available.
 
 In Linux, services are listed under: `cat /etc/services`.
 
-## configuration
+## Configuration
 
 The conf file is `/etc/xinetd.conf`, which usually includes those inside `/etc/xinetd.d/` to enable/disable certain services.
 
 Services may come turned off by default so as to not interfere with existing network configurations.
 
-For example, supposing you have `/etc/xinetd.d/daytime` included from `/etc/xinetd.conf`. ddit that file to turn the service on:
+For example, supposing you have `/etc/xinetd.d/daytime` included from `/etc/xinetd.conf`. Edit that file to turn the service on:
 
     sudo vim /etc/xinetd.d/daytime
 
@@ -103,7 +103,7 @@ Used to test the network.
 
 ### Time
 
-Time in seconds since 00:00 (midnight) 1 January, 1900 GMT as a c integer in network order:
+Time in seconds since 00:00 (midnight) 1 January, 1900 GMT as a C integer in network order:
 
     netcat localhost 37 | hexdump -C
 

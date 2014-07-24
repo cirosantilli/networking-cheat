@@ -2,14 +2,33 @@
 
 Information on networking protocols and applications. E.g.: TCP/IP, email, Firefox, netstat, etc.
 
-Almost all OS specifics currently only discuss Linux.
-Additions of info for other OSs are welcome, under clearly delimited sections.
+Almost all OS specifics currently only discuss Linux. Additions of info for other OSs are welcome, under clearly delimited sections.
+
+## IETF
+
+Internet Engineering Task Force.
+
+Specifies the majority of standards discussed.
+
+Specifies mainly networking protocols, in particular HTTP, which is used at many points of W3C documentation.
+
+### RFC 2199
+
+### Key words
+
+Explains what the key words like `MUST`, `SHOULD` and `MAY` used in RFCs mean.
+
+<http://www.ietf.org/rfc/rfc2119.txt>
+
+- `MUST`: obligatory
+- `SHOULD`: do it unless you have a good reason no to
+- `MAY`: completely optional: only implement if it's worth it for you
 
 ## OSI vs IPS
 
 Models for network protocols.
 
-IPS model has only 4 layers, OSI has 7.
+IPS is from IETF and has only 4 layers, OSI is from ISO and has 7.
 
 Both seem to contain more or less the same protocols, except that they are put into different layers.
 
@@ -179,7 +198,7 @@ The fields used from the IP header  are:
 
         | 0 | DF | MF |
 
-    - 0: reserved, always set to 0
+    -   0: reserved, always set to 0
 
     -   `DF`: don't fragment.
 
@@ -189,7 +208,7 @@ The fields used from the IP header  are:
 
         If `DF = 0`, fragmentation can occur, and tranmission continues.
 
-    - `MF`: more fragments
+    -   `MF`: more fragments
 
         If 0, this is the last fragment.
 
@@ -494,10 +513,10 @@ Its number on the IP protocol field is 1, so you may guess that this is a very i
 
 Structure of the ICMP header
 
-    - Type 1B
-    - Code 1B
-    - Checksum 2B
-    - Variable part 4B
+- Type 1B
+- Code 1B
+- Checksum 2B
+- Variable part 4B
 
 ICMP can also contain an optional extra data section after the variable part.
 
@@ -597,8 +616,11 @@ Also consider Wireshark, whose output is generally easier to interpret (but unfo
 Most useful options:
 
 -   `-X`: show ASCII and hex side by side:
+
 -   `-n`: don't resolve hostnames, show numeric IPs
+
 -   `-S`: don't resolve hostnames, show numeric IPs
+
 -   `-vvv`: maximum verbosity level
 
     Interprets standard data types and prints them, making output easier to understand.
@@ -726,21 +748,18 @@ It is a serves as a great URL placeholder on simple examples.
 
 Every name must be under one of those.
 
-They are controlled by IANA, and there are not that many out there
-except for the country ones: <http://en.wikipedia.org/wiki/List_of_Internet_top-level_domains>
+They are controlled by IANA, and there are not that many out there except for the country ones: <http://en.wikipedia.org/wiki/List_of_Internet_top-level_domains>
 
 To get a country TLD, it seems that you must have some link with the country.
 
-Some TLDs are reserved for certain uses and registrars must check that you/ your organization
-are eligible: `.gov` for governments, `.mit` for US military.
+Some TLDs are reserved for certain uses and registrars must check that you/ your organization are eligible: `.gov` for governments, `.mit` for US military.
 
 Some interesting ones:
 
 - `.sexy` and `.xxx`. Guess what.
 - `.guru`. No suggested use. Funny.
 
-Some country ones have become generic: `.io` is a notable example,
-popular amongst startups as of 2014-03. Short, sounds good, reminds of IO input output.
+Some country ones have become generic: `.io` is a notable example, popular amongst startups as of 2014-03. Short, sounds good, reminds of IO input output.
 
 ## DHCP
 
@@ -760,18 +779,11 @@ The server usually (TODO always?) runs in the router, and can be configured from
 
 ## Static IP
 
-On a home network that you control, it is better to use intuitive hostnames
-and let the addresses be dynamically set via DHPC, unless you absolutely need a static IP,
-for example to setup a server behind your router.
+On a home network that you control, it is better to use intuitive hostnames and let the addresses be dynamically set via DHPC, unless you absolutely need a static IP, for example to setup a server behind your router.
 
-DHPC does not know about static IPs: if you set one you must make sure
-that it is outside of the DHPC range. DHPC is done by the router,
-and should be configurable from the browser interface.
+DHPC does not know about static IPs: if you set one you must make sure that it is outside of the DHPC range. DHPC is done by the router, and should be configurable from the browser interface.
 
-On my Numericable router, under Network > Basic Settings > IP LAN > I have two fields:
-`Starting IP Address` and `Ending IP Address` which allow me to control it.
-By default, the range is 192.168.0.10 to 192.168.0.50, which is a sensible default
-allowing for 8 small static IPs between 2 and 9, 1 being the router's address.
+On my Numericable router, under Network > Basic Settings > IP LAN > I have two fields: `Starting IP Address` and `Ending IP Address` which allow me to control it. By default, the range is 192.168.0.10 to 192.168.0.50, which is a sensible default allowing for 8 small static IPs between 2 and 9, 1 being the router's address.
 
 On Ubuntu 12.04, there are a few ways of doing it.
 
@@ -872,13 +884,9 @@ Protocol that convert strings into IPs, for example:
 
     http://www.google.com -> 173.194.34.34
 
-Before before using an address such as `www.google.com`,
-any program such as a browser must first resolve the hostname `www.google.com`
-into an IP by asking that from a server.
+Before before using an address such as `www.google.com`, any program such as a browser must first resolve the hostname `www.google.com` into an IP by asking that from a server.
 
-Linux systems usually offer `man resolver` C library interface,
-which any program can use to resolve DNS names.
-The resolver library may cache results across applications that have already been resolved.
+Linux systems usually offer `man resolver` C library interface, which any program can use to resolve DNS names. The resolver library may cache results across applications that have already been resolved.
 
 ### DNS on WAN
 
@@ -940,8 +948,7 @@ Print currently desired hostname:
     echo $HOSTNAME
     hostname
 
-In the default bash `PS1` line for Ubuntu and many systems you see:
-`ciro@ciro-Thinkpad-T430`, then the hostname is `ciro-Thinkpad-T430`.
+In the default bash `PS1` line for Ubuntu and many systems you see: `ciro@ciro-Thinkpad-T430`, then the hostname is `ciro-Thinkpad-T430`.
 
 Change hostname for cur session:
 
@@ -975,8 +982,7 @@ TODO
 
 ### Zone file
 
-When you register for a domain of your own, you will start thinking about this:
-it is the main setting on your registrar interface.
+When you register for a domain of your own, you will start thinking about this: it is the main setting on your registrar interface.
 
 <http://en.wikipedia.org/wiki/Zone_file>
 
@@ -984,8 +990,7 @@ it is the main setting on your registrar interface.
 
 `@` in the zone file means the domain you own without any subdomain.
 
-E.g., if you own `cirosantilli.com`, `@` means `cirosantilli.com` itself,
-while `www` means `www.cirosantilli.com`.
+E.g., if you own `cirosantilli.com`, `@` means `cirosantilli.com` itself, while `www` means `www.cirosantilli.com`.
 
 Apex domains are more restrictive than subdomains, and certain hosting services advise against it, such as GitHub Pages.
 
@@ -1116,7 +1121,7 @@ From the lowest level to the highest:
 
 ## ifconfig
 
-Network InterFace configuration tool.
+`Network InterFace configuration tool`.
 
 Includes stuff like IPs, subnet masks, MAC, etc.
 
@@ -1424,7 +1429,7 @@ SSH access.
 
 Languages: Python, Java, Ruby.
 
-Lots of templates, including wordpress.
+Lots of templates, including WordPress.
 
 Number of apps quite limited: 3 per account.
 
@@ -1482,8 +1487,6 @@ Applications like Apache and Nginx.
 
 ### Non free
 
-[ste12]: http://www.amazon.com/TCP-Illustrated-Volume-Addison-Wesley-Professional/dp/0321336313
-
 -   [stevens - 2012 - tcp ip illustrate volume 1 2nd edition][ste12]
 
     Extremely clear and exemplified.
@@ -1492,10 +1495,11 @@ Applications like Apache and Nginx.
 
     Great first book.
 
-[dos06]: http://www.amazon.com/Understanding-TCP-IP-ebook/dp/B007TUYE0G/
-
 -   [dostalek - 2006 - Understanding tcp ip][dos06]
 
     Explains the most important Internet protocol suite protocols deeply.
 
     Might not be the best first TCP IP book because it is a bit advanced, but it is a very good second one if you know the basics.
+
+[dos06]: http://www.amazon.com/Understanding-TCP-IP-ebook/dp/B007TUYE0G/
+[ste12]: http://www.amazon.com/TCP-Illustrated-Volume-Addison-Wesley-Professional/dp/0321336313

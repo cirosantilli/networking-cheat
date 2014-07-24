@@ -16,7 +16,7 @@ Theses strings are http requests
 
 Then it takes the http request, processes it, and then returns the request to the client
 
-Part of the processing may be passed to another program: typically a <#cgi> script
+Part of the processing may be passed to another program: typically a CGI script
 
 ## Test preparations
 
@@ -51,11 +51,11 @@ Finally move our test dir to the serve root:
 
     sudo mv test /var/www/
 
-The default root for serving files is specified in the <#conf file> by the `DocumentRoot` directive. In current ubuntu, it is `/var/www/`
+The default root for serving files is specified in the <#conf file> by the `DocumentRoot` directive. In current Ubuntu, it is `/var/www/`
 
 The user under which the web server runs must have read access to this directory. *This is the default on Ubuntu*, where the apache server runs as user `www-root`!
 
-Usually this user is a different user from `root` for sercurity.
+Usually this user is a different user from `root` for security.
 
 ## conf file
 
@@ -93,7 +93,7 @@ This conf may be useful for testing server configuration.
 
 Ubuntu default is currently `/var/www/`
 
-Open file /var/www/test/index.html:
+Open file `/var/www/test/index.html`:
 
     firefox localhost/test/index.html
 
@@ -115,9 +115,9 @@ Set Apache serve root at given dir:
 
 For this to work, make sure `DocumentRoot` is not set anywhere else. (by default it was included in the include files, `grep -r DocumenRoot` shows where)
 
-For security concerns, only put things you want apache to serve directly inside DocumentRoot such as HTML, CSS and images.
+For security concerns, only put things you want apache to serve directly inside `DocumentRoot` such as HTML, CSS and images.
 
-Stuff that users should not see such as cgi scripts and *gasp* ssl certificates are better to remain outside it, so that you don't serve them by mistake!
+Stuff that users should not see such as CGI scripts and *gasp* SSL certificates are better to remain outside it, so that you don't serve them by mistake!
 
 ### Listen
 
@@ -153,8 +153,7 @@ Allow to override no directories (the ifle is ignored):
 
 ### Include
 
-Copy paste Include other apache conf files or entire directories
-into the current configuration:
+Copy paste Include other apache conf files or entire directories into the current configuration:
 
     Include file.conf
     Include conf-d
@@ -168,7 +167,7 @@ Deny access from given host
 
 ### DirectoryIndex
 
-What to do when user acesses a directory location:
+What to do when user accesses a directory location:
 
     DirectoryIndex index.html index.php /cgi-bin/index.pl
 
@@ -178,18 +177,17 @@ SAME:
     DirectoryIndex index.php
     DirectoryIndex /cgi-bin/index.pl
 
-with this, for the entire site, first looks in order for:
+With this, for the entire site, first looks in order for:
 
 - `index.html`
 - `index.php`
 - `/cgi-bin/index.pl`
 
-note how you can specify a script outside of that dir
+Note how you can specify a script outside of that dir.
 
-in case none of those actions match, the default is for
-`mod_autoindex` to generate an html directory listing
+In case none of those actions match, the default is for `mod_autoindex` to generate an html directory listing.
 
-for specific dirs, use the `Directory` directive
+For specific dirs, use the `Directory` directive.
 
 #### mod_autoindex
 
@@ -359,7 +357,7 @@ The following goes to google:
 
 ### CGI
 
-**CGI** is a protocol of how a server communicates with a CGI script.
+*CGI* is a protocol of how a server communicates with a CGI script.
 
 A CGI script is simply a script/executable that outputs the part of HTTP response.
 
@@ -482,7 +480,7 @@ Load a module:
 
 ### a2enmodule
 
-Apache2 ENable Module.
+`Apache2 ENable Module`.
 
 Utility that enables modules easily.
 
@@ -597,7 +595,7 @@ Test:
 
     firefox localhost/test/auth &
 
-Try u and u2 pass p!
+Try `u` and `u2` and pass `p`!
 
 ### browser cache
 
@@ -606,7 +604,7 @@ Try u and u2 pass p!
 
 The second time, you may not be prompted for a password!
 
-This is because Firefox has cached your password for some time and resent it automatically! there is no server state.
+This is because Firefox has cached your password for some time and resent it automatically! There is no server state.
 
 To avoid the cache use curl:
 
@@ -619,7 +617,7 @@ With pass:
     curl u:p@localhost/test/auth
     curl -u u:p localhost/test/auth
 
-of course, better using the `-u` option which could work also for different authentication methods.
+Of course, better using the `-u` option which could work also for different authentication methods.
 
 ## PHP
 

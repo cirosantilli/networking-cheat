@@ -6,11 +6,11 @@ Sending email from programs may be very difficult because anti spam measures tha
 
 This means that you will have to test all major email providers to see if for some reason their anti spam is not blocking your emails.
 
-- Amazing client (desktop vs webmail vs mobile) statistics: https://litmus.com/blog/email-client-market-share-where-people-opened-in-2013/litmus-email-client-market-share-2013-infographic
+-   Amazing client (desktop vs website vs mobile) statistics: https://litmus.com/blog/email-client-market-share-where-people-opened-in-2013/litmus-email-client-market-share-2013-infographic
 
     Key points: mobile rules.
 
-It seems that gmail.com is far on the lead for email hosts.
+It seems that `gmail.com` is far on the lead for email hosts
 
 Common pitfalls:
 
@@ -20,7 +20,7 @@ Common pitfalls:
 
     Alternative: use SES SMTP
 
-- try do to AWS SES SMTP with From address as you@gmail.com
+- try do to AWS SES SMTP with From address as `you@gmail.com`.
 
     Message will be sent, but falls under Gmail's spam because you don't have an SPF record. 
 
@@ -39,9 +39,9 @@ Common pitfalls:
 To receive and send email from a domain you own, you can:
 
 - set up an email server. You will have to keep it running and manage it.
-- some registrars such as Godaddy provide an email forwarding service. This may be a simple solution if you do not expect very high reliability.
+- some registrars such as GoDaddy provide an email forwarding service. This may be a simple solution if you do not expect very high reliability.
 
-Gmail does not allow you to redirect a message as: me@gmail.com -> a@godaddy.com -> me.gmail.com: try with a different email address.
+Gmail does not allow you to redirect a message as: `me@gmail.com` -> `a@godaddy.com` -> `me.gmail.com:` try with a different email address.
 
 ## MTA
 
@@ -53,7 +53,7 @@ Interface that comes in multiple packages such as SSMTP and postfix, so to confi
 
 `sendmail` is an utility. Its interface is probably implemented by other packages because that utility was widely used.
 
-May be symlink to an executable, or to the /etc/alternatives.
+May be symlink to an executable, or to the `/etc/alternatives`.
 
     echo "asdf" | sendmail
 
@@ -64,7 +64,7 @@ On Ubuntu a symlink to the alternatives system.
     echo -e "the message\n\nend of it" | mail -s "subject" -r "from@gmail.com" "to@gmail.com"
     mail -s "subject" -r "from@gmail.com" "to@gmail.com"
 
-Mail ends in a line which contains a single dot `.` or ctrl+D.
+Mail ends in a line which contains a single dot `.` or Ctrl + D.
 
 ## mailx
 
@@ -80,9 +80,9 @@ Popular MTA. Really is simpler than Postfix to setup.
 
 Configuration file:
 
-vim /etc/ssmtp/ssmtp.conf
+    vim /etc/ssmtp/ssmtp.conf
 
-Configurations to send an email from gmail:
+Configurations to send an email from Gmail:
 
     Root=your_email@gmail.com
     Mailhub=smtp.gmail.com:465
@@ -121,7 +121,7 @@ If delivery failed, explains why.
 
 Can send mail with attachment.
 
-Curses inteface.
+Curses interface.
 
 ## send email from website
 

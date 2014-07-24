@@ -24,8 +24,9 @@ There are currently two main versions HTTP/1.0 and HTTP/1.1 which is the most po
 
 The HTTP/1.1 specification can be found at RFC 2616 <http://www.w3.org/Protocols/rfc2616/rfc2616.html> (1999).
 
-Some modifications have since been made through other RFCs:
+Many modifications have since been made through other RFCs:
 
+- <https://tools.ietf.org/html/rfc4918> extensions, like 422.
 - PATCH method <https://tools.ietf.org/html/rfc5789>
 - `multipart/form-data` `content-type` <http://www.ietf.org/rfc/rfc2388>
 
@@ -67,6 +68,14 @@ Where:
 
 ### Initial response line
 
+    HTTP/1.0 200 OK
+    1        2   3
+
+1. version
+2. status code. Programmatic use, so get it right.
+3. Reason Phrase. Each status code has a default reason phrase,
+    but any phrase may be used, the value is not fixed by the protocol.
+
 #### Method
 
 Determines in general terms what the request is about.
@@ -105,8 +114,7 @@ Or:
     HTTP/1.1 404 Not Found
     1        2   3
 
-
-where:
+Where:
 
 1. HTTP version
 2. status code
@@ -120,11 +128,13 @@ Some of the more interesting ones are commented here.
 
 ##### 3xx
 
+Very readable spec: <http://tools.ietf.org/html/rfc2616#section-10.3>
+
 Redirect to another page for a given reason.
 
 All of those statuses require the `Location` header that indicates where to redirect to.
 
-It is also common to offer an HTML redirect page in case the user agent does not follow redirects. Most browsers do so by default, and don't ever show Moved pages.
+The spec recommends that an HTML redirect page be given in the body in case the user agent does not follow redirects. Most browsers do so by default, and don't ever show Moved pages.
 
     HTTP/1.1 301 Moved Permanently
     Location: http://www.example.org/
@@ -141,9 +151,11 @@ It is also common to offer an HTML redirect page in case the user agent does not
     </body>
     </html>
 
-Good discussion on <http://stackoverflow.com/questions/4764297/difference-between-http-redirect-codes>
+By default, the new request should not change the initial method, unless stated otherwise as in 303.
 
-TODO what happens on circular redirects?
+If the new method would not be a `GET` or `HEAD` request, the UA can only carry it out if it is possible to ask for confirmation from the user, since something like `POST` may have unwanted consequences.
+
+User agents should detect infinite redirect loops.
 
 ###### 301
 
@@ -163,7 +175,19 @@ In the spec, exact same as 307.
 
 In practice, implemented exactly as 303, even on 2014 browsers, and nothing can be done to change that without breaking things.
 
-Still the most common response promoted by 2014 web frameworks. TODO why? Compatibility with HTTP 1.0 which does not have 303 and 307?
+Still the most common response promoted by 2014 web frameworks. E.g., Rail's most common redirection method `redirect_to` uses it. TODO why? Compatibility with HTTP 1.0 which does not have 303 and 307, even if 1.1 is very widely implemented?
+
+###### 303
+
+Redirect to Location, and use `GET` whatever the first method was.
+
+Introduced in HTTP 1.1 do disambiguate 302. Counterpart of 307.
+
+In practice, this is what all 302 implementations do.
+
+This is the most correct response after an user submitted a POST form and you want him to see the object he created, although in practice 302 still is more common.
+
+Perhaps someday we will be able to use XHR and Javascript `pushState` for form submissions, thus saving one extra request.
 
 ###### 304
 
@@ -183,12 +207,19 @@ The server sees if the resource has been updated since that date, and if not can
 
 In the spec, exact same as 302.
 
-Introduced in HTTP 1.1 with 303 because all browsers treat 302 as 303,
-and nothing can be done to change it now.
+Introduced in HTTP 1.1 with 303 because all browsers treat 302 as 303, and nothing can be done to change it now.
 
 This time we hope browsers will follow the spec.
 
-##### 401
+##### 4xx
+
+###### 400
+
+Bad syntax. E.g., malformed JSON.
+
+In theory, *not* for invalid values, e.g., invalid email address. Use 422 for that if supported.
+
+###### 401
 
 Server should include a `WWW-Authenticate` field specifying what kind of authentication is required.
 
@@ -202,11 +233,19 @@ I get for example:
 
 so the type is Basic
 
-`AuthName value` is a any descriptive string set by the server operators. in Apache it is given by the `AuthName` directive
+`AuthName value` is a any descriptive string set by the server operators. In Apache it is given by the `AuthName` directive.
 
-###### 401 vs 403
+###### 403
 
-<http://stackoverflow.com/questions/3297048/403-forbidden-vs-401-unauthorized-http-responses>
+Vs. 401: <http://stackoverflow.com/questions/3297048/403-forbidden-vs-401-unauthorized-http-responses>
+
+###### 422
+
+WebDAV extension: <https://tools.ietf.org/html/rfc4918#section-11.2>
+
+Returned for invalid parameters sent, e.g., invalid email address sent.
+
+Returned by Rails 4 on form validation.
 
 ## Headers
 
@@ -471,9 +510,7 @@ Many programs accept URLs strings with user/pass included:
 
     curl -v u:p@google.com
 
-This is however just a convention, since programs that accept it
-parse the string to extract the `u:p` part, and then send it
-on the header.
+This is however just a convention, since programs that accept it parse the string to extract the `u:p` part, and then send it on the header.
 
 ### Digest authentication
 
