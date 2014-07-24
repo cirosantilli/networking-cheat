@@ -70,7 +70,7 @@ Use this for recursive site download only, and the more advanced curl for other 
 
 - `-N`: timestamping. Only down if newer than already downloaded.
 
-#combos
+# combos
 
 Setup:
 

@@ -1,4 +1,4 @@
-#Send Emails Programmatically
+# Send Emails Programmatically
 
 Sending email from programs may be very difficult because anti spam measures that will block your naive attempts unless you configure everything properly.
 
@@ -22,7 +22,7 @@ Common pitfalls:
 
     Message will be sent, but falls under Gmail's spam because you don't have an SPF record. 
 
-##Free methods
+## Free methods
 
 - AWS SES.
 
@@ -32,7 +32,7 @@ Common pitfalls:
 
 - Google business, 1 month period.
 
-#Email from your domain
+# Email from your domain
 
 To receive and send email from a domain you own, you can:
 
@@ -41,11 +41,11 @@ To receive and send email from a domain you own, you can:
 
 Gmail does not allow you to redirect a message as: me@gmail.com -> a@godaddy.com -> me.gmail.com: try with a different email address.
 
-#MTA
+# MTA
 
 Mail transfer agent.
 
-#sendmail
+# sendmail
 
 Interface that comes in multiple packages such as SSMTP and postfix, so to configure it you must first determine which package provides it.
 
@@ -55,7 +55,7 @@ May be symlink to an executable, or to the /etc/alternatives.
 
     echo "asdf" | sendmail
 
-#mail
+# mail
 
 On Ubuntu a symlink to the alternatives system.
 
@@ -64,13 +64,13 @@ On Ubuntu a symlink to the alternatives system.
 
 Mail ends in a line which contains a single dot `.` or ctrl+D.
 
-#mailx
+# mailx
 
 POSIX.
 
 Does not seem to be used a lot, maybe because it does not have many capabilities.
 
-#ssmtp
+# ssmtp
 
 Simple SMTP.
 
@@ -97,7 +97,7 @@ Now you can send emails from the command line as:
 
 The email will be sent from the email account you configured to send from.
 
-#postfix
+# postfix
 
 Main configuration file:
 
@@ -109,23 +109,23 @@ This is probably done so that email sending does not block the current session, 
 
 To view the send queue, use `mailq`.
 
-##mailq
+## mailq
 
 Show email sending queue.
 
 If delivery failed, explains why.
 
-#mutt
+# mutt
 
 Can send mail with attachment.
 
 Curses inteface.
 
-#send email from website
+# send email from website
 
 Sending email from a website may be nontrivial because of measures that must be taken to fight spam.
 
-#spf
+# spf
 
 Sender Policy Framework.
 

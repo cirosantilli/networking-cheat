@@ -11,7 +11,7 @@ It is possible to do tests using `localhost` on a single machine.
 
 Per user configurations for both the server and the client are contained under `~/.ssh`
 
-#Server
+# Server
 
 Known as `sshd`, which stands for ssh daemon.
 
@@ -46,7 +46,7 @@ and to check its status:
 
 The default log file for the server is: `/var/log/auth.log`, which is shared by other utilities such as `sudo`. If things fail, that is where you should look! Try `sudo grep sshd /var/log/auth.log` for the relevant log lines.
 
-#client
+# client
 
 The client connects to a server to give shell access on the server.
 
@@ -107,7 +107,7 @@ The default is 22 specified by IANA, so don't change it if you can avoid it.
 
 It is *not* possible to set ports via the common URL syntax: `ssh host:22`.
 
-#authorized_keys
+# authorized_keys
 
 For this method to work, the server must have your public RSA key authorized.
 
@@ -137,7 +137,7 @@ SSH is by default very fussy about the permissions of this file which should be:
 
 and not more permissive. If you really want that, you can do configure SSH to be less safe via `StrictModes no`.
 
-#ssh-keygen
+# ssh-keygen
 
 Generates public and private key pairs for use with ssh.
 
@@ -179,7 +179,7 @@ You can get the fingerprint or all the fingerprints present on a file via:
     ssh-keygen -lf ~/.ssh/id_rsa.pub
     ssh-keygen -lf ~/.ssh/known_hosts
 
-#Usage
+# Usage
 
 Once you log in, it is as if you had a shell on the given ssh server computer!
 
@@ -195,7 +195,7 @@ To close your connection:
 
 or enter `CTRL-D`.
 
-#GUI applications
+# GUI applications
 
 It is possible to run X applications remotely, but it may be that the default configurations don't allow you to do that.
 
@@ -216,7 +216,7 @@ If you forget to let `ForwardX11 yes`, you would get errors like:
     Error: can't open display
     Error: display not specified
 
-#scp
+# scp
 
 `cp` via SSH.
 
@@ -246,6 +246,6 @@ You cannot do a direct SSH, e.g. on Google Cloud you need to use `gcutil` as fro
 
 And then remove trash lines.
 
-#sftp
+# sftp
 
 FTP with SSH encryption

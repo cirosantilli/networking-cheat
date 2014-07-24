@@ -14,7 +14,7 @@ There are however many other applications outside browsers: any program can send
 
 You can use the `nc` utility to both send and receive low level HTTP requests to understand what is going on.
 
-#Standards
+# Standards
 
 HTTP is specified by W3C.
 
@@ -27,11 +27,11 @@ Some modifications have since been made through other RFCs:
 - PATCH method <https://tools.ietf.org/html/rfc5789>
 - `multipart/form-data` `content-type` <http://www.ietf.org/rfc/rfc2388>
 
-#Newlines
+# Newlines
 
 Every newline is a CRLF. Tools such as `curl` convert `\n` to `\r\n`.
 
-#Request and response
+# Request and response
 
 A sample GET request that a browser can send to a server looks like:
 
@@ -41,11 +41,11 @@ A sample POST request that a browser can send to a server looks like:
 
     TODO
 
-#First line
+# First line
 
 The first line is different for requests and responses.
 
-##Initial request line
+## Initial request line
 
 An initial request line looks something like:
 
@@ -63,19 +63,19 @@ Where:
 2. path
 3. HTTP version
 
-##Initial response line
+## Initial response line
 
-###Method
+### Method
 
 Determines in general terms what the request is about.
 
 RFC 2616 specifies the following methods:
 
-- `GET`:     get information from server
-- `HEAD`:    only get header information from server
-- `POST`:    send data to server to create new objects. E.g.: you click on the submit button of an HTML `form` with `method="post"`.
-- `PUT`:     update or create entire objects on server. Both PUT and POST can be used to create object, but `PUT` is *idempotent*: receiving multiple `PUT` requests is the same as receiving a single one.
-- `DELETE`:  remove objects from server
+- `GET`:    get information from server
+- `HEAD`:   only get header information from server
+- `POST`:   send data to server to create new objects. E.g.: you click on the submit button of an HTML `form` with `method="post"`.
+- `PUT`:    update or create entire objects on server. Both PUT and POST can be used to create object, but `PUT` is *idempotent*: receiving multiple `PUT` requests is the same as receiving a single one.
+- `DELETE`: remove objects from server
 - `TRACE`:
 - `CONNECT`:
 
@@ -91,7 +91,7 @@ There are also proposed methods in other RFCs:
 
     In `PATCH`, attributes not given are not modified.
 
-##Status line
+## Status line
 
 An initial response line looks something like:
 
@@ -110,13 +110,13 @@ where:
 2. status code
 3. status code name. There is only one possible name for every status code.
 
-###Status code
+### Status code
 
 All status codes can be found here: <http://en.wikipedia.org/wiki/List_of_HTTP_status_codes>
 
 Some of the more interesting ones are commented here.
 
-####3xx
+#### 3xx
 
 Redirect to another page for a given reason.
 
@@ -144,7 +144,7 @@ Good discussion on <http://stackoverflow.com/questions/4764297/difference-betwee
 
 TODO what happens on circular redirects?
 
-#####301
+##### 301
 
 Permanent redirect: the page has been moved forever.
 
@@ -156,7 +156,7 @@ TODO how to revert this if you change your mind later?
 <http://getluky.net/2010/12/14/301-redirects-cannot-be-undon/>
 suggests it is impossible.
 
-#####302
+##### 302
 
 Hell.
 
@@ -168,7 +168,7 @@ and nothing can be done to change that without breaking things.
 Still the most common response promoted by 2014 web frameworks.
 TODO why? Compatibility with HTTP 1.0 which does not have 303 and 307?
 
-#####304
+##### 304
 
 Not modified.
 
@@ -182,7 +182,7 @@ If the client already has an older version of the resource cached, it can send i
 
 The server sees if the resource has been updated since that date, and if not can return a 304.
 
-#####307
+##### 307
 
 In the spec, exact same as 302.
 
@@ -191,7 +191,7 @@ and nothing can be done to change it now.
 
 This time we hope browsers will follow the spec.
 
-####401
+#### 401
 
 Server should include a `WWW-Authenticate` field specifying what kind of authentication is required.
 
@@ -207,19 +207,19 @@ so the type is Basic
 
 `AuthName value` is a any descriptive string set by the server operators. in Apache it is given by the `AuthName` directive
 
-#####401 vs 403
+##### 401 vs 403
 
 <http://stackoverflow.com/questions/3297048/403-forbidden-vs-401-unauthorized-http-responses>
 
-#Headers
+# Headers
 
 Certain headers can only be used on requests, other only on responses, and a few on both.
 
 Headers are case insensitive. A common style is to capitalize the first letter of each word.
 
-##Request headers
+## Request headers
 
-###Host
+### Host
 
 Mandatory.
 
@@ -231,7 +231,7 @@ With `curl http://google.com`
 
     Host: google.com
 
-###User-Agent
+### User-Agent
 
 Description of the user agent that sent the request.
 
@@ -245,7 +245,7 @@ Curl 7.22:
 
     User-Agent: curl/7.22.0 (i686-pc-linux-gnu) libcurl/7.22.0 OpenSSL/1.0.1 zlib/1.2.3.4 libidn/1.23 librtmp/2.3
 
-###Accept
+### Accept
 
 A comma separated list of MIME type that the client wants as a response.
 
@@ -261,7 +261,7 @@ Firefox 29:
 
 The `q=` are the quality factors, that indicate the level of preference for each listed media type: <http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1>
 
-###Accept-Language
+### Accept-Language
 
 Comma separated list of accepted `Content-Language` for the response.
 
@@ -269,7 +269,7 @@ Firefox 29:
 
     Accept-Language: en-US,en;q=0.5
 
-###Accept-Encoding
+### Accept-Encoding
 
 Comma separated list of accepted `Content-Encoding` for the response.
 
@@ -277,13 +277,13 @@ Firefox 29:
 
     Accept-Encoding: gzip, deflate
 
-###Connection
+### Connection
 
 `keep-alive`: TODO
 
-##Response headers
+## Response headers
 
-###Content-Type
+### Content-Type
 
 The MIME type of the data being sent on the body.
 
@@ -309,7 +309,7 @@ Large list with simple explanations: <http://en.wikipedia.org/wiki/Internet_medi
 
 -   `application/javascript`
 
-###Content-Length
+### Content-Length
 
 Length of the body in bytes.
 
@@ -317,7 +317,7 @@ Very important when body is present because it allows the receiver to allocate m
 
 TODO mandatory if body is present?
 
-###Content-Encoding
+### Content-Encoding
 
 Must be one of the request `Accept-Encoding` values.
 
@@ -325,7 +325,7 @@ Must be one of the request `Accept-Encoding` values.
 
     Supported by almost all modern browsers: Firefox sends it by default, Apache has `mod_gzip` which gzips everything when possible.
 
-###Content-Disposition
+### Content-Disposition
 
 Suggests to the browser what to do to certain types of data, specially content types different from HTML:
 
@@ -339,7 +339,7 @@ Suggests to the browser what to do to certain types of data, specially content t
 
 In Firefox, the browser preferences under `Edit > Preferences > Application` determine what to do for each MIME type, and overrirides this header.
 
-###Server
+### Server
 
 Software that sent the response.
 
@@ -348,7 +348,7 @@ Software that sent the response.
 
 Not mandatory: Facebook does not return it.
 
-###multipart/form-data
+### multipart/form-data
 
 Specified at RFC 2388 <http://www.ietf.org/rfc/rfc2388>.
 
@@ -372,7 +372,7 @@ Therefore: use it iff upload of a binary file is possible on the request.
 
 Sample request: <http://stackoverflow.com/a/23518189/895245>
 
-####boundary
+#### boundary
 
 This is the only type of request does not have an empty line after the headers: `boundary` comes directly.
 
@@ -384,19 +384,19 @@ The boundary cannot appear inside the data: the user agent must chose it appropr
 
 The trailing hyphens of the boundary are often added for partial backward compatibility with older multipart RFCs, and to improve readability. TODO are they mandatory?
 
-##CORS headers
+## CORS headers
 
 The following headers are used for CORS requests:
 
-###Origin
+### Origin
 
-###Access-Control-Allow-Origin: http://api.bob.com
+### Access-Control-Allow-Origin: http://api.bob.com
 
-###Access-Control-Allow-Credentials: true
+### Access-Control-Allow-Credentials: true
 
-###Access-Control-Expose-Headers: FooBar
+### Access-Control-Expose-Headers: FooBar
 
-##Custom headers
+## Custom headers
 
 <http://stackoverflow.com/questions/3561381/custom-http-headers-naming-conventions>
 
@@ -404,9 +404,9 @@ In the past, prefix by `X-`.
 
 After 2012: cross your fingers and pick a name.
 
-#Body
+# Body
 
-#HTTPS
+# HTTPS
 
 Asymmetric key encryption between server and client.
 
@@ -416,11 +416,11 @@ Downside: encrypt/decrypt costs time.
 
 Main usage: security critical operations such as password exchanges.
 
-#HTTP authentication
+# HTTP authentication
 
 Authentication that is sent over the HTTP header.
 
-##Sources
+## Sources
 
 <http://www.httpwatch.com/httpgallery/authentication/>
 
@@ -428,7 +428,7 @@ Comparison to form auth, nice diagrams: <http://docs.oracle.com/javaee/1.4/tutor
 
 great post: <http://stackoverflow.com/questions/549/the-definitive-guide-to-forms-based-website-authentication>
 
-##Downsides of HTTP auth
+## Downsides of HTTP auth
 
 Parameters are left to the browser:
 
@@ -441,11 +441,11 @@ Therefore, you cannot customize them and users will get different interfaces on 
 
 For those reasons, form authentication is used on most large sites today.
 
-##Updside of HTTP auth
+## Updside of HTTP auth
 
 Simple.
 
-##Basic authentication
+## Basic authentication
 
 Authentication is sent on the header *unencrypted*!
 
@@ -468,7 +468,7 @@ Just checking:
 
     assert [ "`echo dTpw | base64 -d`" = "u:p" ]
 
-###URL convention
+### URL convention
 
 Many programs accept URLs strings with user/pass included:
 
@@ -478,7 +478,7 @@ This is however just a convention, since programs that accept it
 parse the string to extract the `u:p` part, and then send it
 on the header.
 
-##Digest authentication
+## Digest authentication
 
 Pretty cool concept
 
@@ -488,7 +488,7 @@ Authentication is sent on the header md5 hashed:
 
     curl --digest -vu u:p google.com
 
-###Why it works
+### Why it works
 
 Data is appended to the authentication with `:` before hashing:
 
@@ -506,7 +506,7 @@ Merits:
 
 - simpler than a full SSL
 
-##NTML
+## NTML
 
 Safer than digest: replay attacks impossible.
 
@@ -514,9 +514,9 @@ Requires server state, so HTTP 1.1 only.
 
 Little current support/usage.
 
-##CSRF
+## CSRF
 
-##Cross site request forgery
+## Cross site request forgery
 
 The attacker Bob posts on a website:
 
@@ -528,7 +528,7 @@ authenticates and makes the request.
 How to prevent it:
 <https://www.owasp.org/index.php/Cross-Site_Request_Forgery_%28CSRF%29_Prevention_Cheat_Sheet>
 
-###Synchronizer Token Pattern.
+### Synchronizer Token Pattern.
 
 The most popular prevention mechanism.
 
@@ -546,7 +546,7 @@ either by adding a hidden form field (Django) or `meta` elements like Rails:
     <meta content="authenticity_token" name="csrf-param" />
     <meta content="asdfqwerASDFQWER12345678" name="csrf-token" />
 
-###Reauthenticate
+### Reauthenticate
 
 Ask user for password again before critical operations.
 
@@ -554,6 +554,6 @@ Used in all online banking systems.
 
 Inconvenient for users since an extra action is required before an authentic request.
 
-#Sources
+# Sources
 
 Good intro tutorial: <http://www.jmarshall.com/easy/http/#structure>
