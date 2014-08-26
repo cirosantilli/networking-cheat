@@ -111,16 +111,15 @@ It is *not* possible to set ports via the common URL syntax: `ssh host:22`.
 
 ## authorized_keys
 
-For this method to work, the server must have your public RSA key authorized.
+List of public keys accepted by server for login as a given user.
 
-The default location for authorized keys is `~/.ssh/authorized_keys`. This location can be configured on the server.
+Each user has its own `/home/u/.ssh/authorized_keys` keys, which determine which public keys allow to login as that user. This means that to login as user `u`, the file `/home/u/.ssh/authorized_keys` must contain your public key. With that you will only be able to login into the account of user `u`.
 
-This means that to login as user `u`, the file `/home/u/.ssh/authorized_keys` must contain your public key. With that you will only be able to login into the account of user `u`.
+This file is only used for RSA authentication, not password.
 
-This file contains one public key per line, which may be preceded by some options, typically to restrict what the session can do, for example:
+In addition to the allowed key, each line can also contain extra options that control the connection:
 
-    from="ok.com",no-port-forwarding,no-X11-forwarding,
-    no-agent-forwarding,no-pty ssh-rsa <key> <comment>
+    from="ok.com",no-port-forwarding,no-X11-forwarding,no-agent-forwarding,no-pty ssh-rsa <key> <comment>
 
 Non-obvious options above include:
 
@@ -128,16 +127,18 @@ Non-obvious options above include:
 
 Options are documented with the server at `man sshd` since they are only used by the server.
 
-*Never* put your private key there!
-
-Next, your client will only connect to a server if its key is in known hosts. Security is useless if someone is impersonating the message receiver. If the server's public identity is not in the known hosts file, ssh will ask is you want to add it.
-
 SSH is by default very fussy about the permissions of this file which should be:
 
     chmod 700 ~/.ssh
     chmod 600 ~/.ssh/authorized_keys
 
 and not more permissive. If you really want that, you can do configure SSH to be less safe via `StrictModes no`.
+
+## known_hosts
+
+Located at: `.ssh/known_hosts`.
+
+Your client will only connect to a server if its key is in known hosts. This file exists because security is useless if someone is impersonating the message receiver. If the server's public identity is not in the known hosts file, SSH will ask is you want to add it.
 
 ## ssh-keygen
 

@@ -4,6 +4,11 @@
 
 # URN
 
+Specified in:
+
+- <http://tools.ietf.org/html/rfc3986>, 2005.
+- <http://url.spec.whatwg.org/>
+
 URLs and URNs are URIs.
 
 URN: uniquely identify a content, but not it's location. Unique across space and time. E.g.: ISBNs. In theory, they will never change, and will forever identify a book. However, they do not tell you where to get the book.
@@ -32,7 +37,7 @@ Examples of schemes:
 
 In most cases for URLs, and notably HTTP, it coincides with the name of the protocol used to retrieve the resource, but there are many schemes that do not map to protocols, specially for non URLs. Some cool ones:
 
-- `about:`:      browser info. In particular, `about:blank` is widely implemented and shows an empty document.
+- `about:`:      browser info. In particular, `about:blank` is widely implemented and shows an empty document. Firefox has easter eggs at [about:robots](about:robots) and [about:mozilla](about:mozilla).
 - `chrome:`:     browser configuration, also adopted on Firefox
 - `file:`:       local file
 - `data:`:       contains the output directly with some encoding

@@ -18,17 +18,38 @@ You can use the `nc` utility to both send and receive low level HTTP requests to
 
 ## Standards
 
-HTTP is specified by W3C.
+HTTP is specified by IETF.
 
 There are currently two main versions HTTP/1.0 and HTTP/1.1 which is the most popular one today.
 
-The HTTP/1.1 specification can be found at RFC 2616 <http://www.w3.org/Protocols/rfc2616/rfc2616.html> (1999).
+The HTTP/1.1 specification can be found at RFC 2616 <http://tools.ietf.org/html/rfc2616>, <http://www.w3.org/Protocols/rfc2616/rfc2616.html> (1999).
 
 Many modifications have since been made through other RFCs:
 
 - <https://tools.ietf.org/html/rfc4918> extensions, like 422.
 - PATCH method <https://tools.ietf.org/html/rfc5789>
 - `multipart/form-data` `content-type` <http://www.ietf.org/rfc/rfc2388>
+
+## Transport
+
+By far the most common is TCP, not UDP: <http://stackoverflow.com/questions/323351/does-http-use-udp>
+
+Quoting the spec:
+
+> This does not preclude HTTP from being implemented on top of any other protocol on the Internet, or on other networks. HTTP only presumes a reliable transport
+
+Since UDP is not "reliable transport", it should not be used.
+
+HTTP is a synchronous request-response protocol <https://en.wikipedia.org/wiki/Request-response>:
+
+- client opens the connection with 3-way handshake
+- client sends the request
+- server replies with ACK and reply
+- client ACK
+- server closes
+- client closes
+
+To observe a sample transaction, use Wireshark, chose a page that requires a single request like `example.com` (no images or CSS for example), then `curl example.com` and filter the Wireshark output by address `ip.addr == 93.184.216.119`.
 
 ## Newlines
 
@@ -373,7 +394,7 @@ Suggests to the browser what to do to certain types of data, specially content t
 
     Content-Disposition: inline
 
-In Firefox, the browser preferences under `Edit > Preferences > Application` determine what to do for each MIME type, and overrirides this header.
+In Firefox, the browser preferences under `Edit > Preferences > Application` determine what to do for each MIME type, and overrides this header.
 
 #### Server
 
@@ -420,9 +441,19 @@ The boundary cannot appear inside the data: the user agent must chose it appropr
 
 The trailing hyphens of the boundary are often added for partial backward compatibility with older multipart RFCs, and to improve readability. TODO are they mandatory?
 
+#### Referer
+
+Sent by the UA containing the page from which the request was sent, so in the case of hyperlinks the page who refered the user to the new one.
+
+Optional, so don't rely on it: <http://stackoverflow.com/questions/6023941/how-reliable-is-http-referer>
+
+Was originally misspelled as `referrer`, with two R's on older specs, but this has been corrected in newer specs.
+
+Used by Rails `redirect_to :back` shortcut.
+
 ### CORS headers
 
-The following headers are used for CORS requests:
+The following headers are used for CORS requests and responses:
 
 #### Origin
 

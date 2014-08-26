@@ -1,4 +1,4 @@
-# netcat
+# Netcat
 
 Low level send and receive TCP/UDP data.
 
@@ -12,7 +12,7 @@ In Ubuntu 12.04, `netcat` and `nc` are symlinks to `nc.openbsd`.
 
 Make a TCP HTTP get request and print the response:
 
-    printf 'GET / HTTP/1.0\r\n\r\n' | nc google.com 80
+    printf 'GET / HTTP/1.0\r\n\r\n' | nc example.com 80
 
 ## u
 
@@ -48,7 +48,7 @@ And curl will print the reply it got: `Hello curl!`.
 
 Same with another `nc` instead of curl:
 
-    echo 'abc' | localhost:8000
+    echo 'abc' | nc localhost 8000
 
 To do multiple tests of what is being sent, just wrap in a while and give an empty reply:
 
@@ -94,7 +94,7 @@ It does not seem possible to emulate an echo server with `nc`, only `ncat`: <htt
 
 `nc` version form `nmap` package.
 
-Options that it has and nc does not:
+Options that it has and `nc` does not: TODO.
 
 ### c
 
