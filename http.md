@@ -147,6 +147,8 @@ All status codes can be found here: <http://en.wikipedia.org/wiki/List_of_HTTP_s
 
 Some of the more interesting ones are commented here.
 
+##### Redirect
+
 ##### 3xx
 
 Very readable spec: <http://tools.ietf.org/html/rfc2616#section-10.3>

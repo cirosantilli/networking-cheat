@@ -7,6 +7,8 @@ Can be specified by either
 - an IP
 - a string that will be resolved by a DNS server to an IP
 
+TODO merge with DNS.
+
 ## Host user pair
 
 A user may access a (system) computer from another computer using for example ssh.

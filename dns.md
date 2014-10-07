@@ -4,6 +4,7 @@ Domain Name System.
 
 - <http://tools.ietf.org/html/rfc1034>
 - <http://tools.ietf.org/html/rfc1035>
+- <http://tools.ietf.org/html/rfc4343> clarifies that domains are case insensitive. <www.ExAmPlE.COM>
 
 Part of the application layer.
 
@@ -181,7 +182,6 @@ Points a domain to an IP. The final part of the resolution.
 Protocol that transforms an IP into a hostname.
 
 Not always supported on all DNS servers.
-
 
 ## DDNS
 
