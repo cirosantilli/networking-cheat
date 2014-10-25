@@ -106,8 +106,8 @@ RFC 2616 specifies the following methods:
 - `GET`:    get information from server
 - `HEAD`:   only get header information from server
 - `POST`:   send data to server to create new objects. E.g.: you click on the submit button of an HTML `form` with `method="post"`.
-- `PUT`:    update or create entire objects on server. Both PUT and POST can be used to create object, but `PUT` is *idempotent*: receiving multiple `PUT` requests is the same as receiving a single one.
-- `DELETE`: remove objects from server
+- `PUT`:    update or create entire objects on server. Both PUT and POST can be used to create object, but `PUT` is *idempotent*.
+- `DELETE`: remove objects from server.
 - `TRACE`:
 - `CONNECT`:
 
@@ -122,6 +122,22 @@ There are also proposed methods in other RFCs:
     In `PUT`, attributes not given are set to default values.
 
     In `PATCH`, attributes not given are not modified.
+
+##### Safe Methods
+
+Methods that shouldn't change the server state significantly. E.g.: `GET`, `HEAD`.
+
+In practice however, many `GET` requests do change the server state: a common example being page view count. However this operation is not considered drastic, and it is generally accepted to be done via `GET`.
+
+Use safe methods whenever possible.
+
+##### Idempotent Method
+
+If a request is sent twice with an idempotent method, it should have the same effect as if it were sent once.
+
+E.g.: `PUT`, `DELETE` and all safe methods.
+
+Both `PUT` and `POST` can be used for object creation: the difference often comes down to: does the user control the unique ID that identifies the created object, often the one shown on the URL to the object? Or is it the server that automatically generates the ID? If the user controls it, a double request is idempotent because the second would be an update with the same data as the first, so `PUT` is the best choice.
 
 ### Status line
 
@@ -280,7 +296,7 @@ Headers are case insensitive. A common style is to capitalize the first letter o
 
 #### Host
 
-Mandatory.
+The only mandatory header in HTTP 1.1.
 
 With `curl http://localhost:8000`:
 
@@ -495,7 +511,7 @@ Authentication that is sent over the HTTP header.
 
 Comparison to form auth, nice diagrams: <http://docs.oracle.com/javaee/1.4/tutorial/doc/Security5.html>
 
-great post: <http://stackoverflow.com/questions/549/the-definitive-guide-to-forms-based-website-authentication>
+Great post: <http://stackoverflow.com/questions/549/the-definitive-guide-to-forms-based-website-authentication>
 
 ### Downsides of HTTP auth
 
@@ -510,7 +526,7 @@ Therefore, you cannot customize them and users will get different interfaces on 
 
 For those reasons, form authentication is used on most large sites today.
 
-### Updside of HTTP auth
+### Upside of HTTP auth
 
 Simple.
 

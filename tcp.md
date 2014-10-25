@@ -159,6 +159,8 @@ There are a few predefined states which server and client can be.
 
 TODO: understand precisely the `FIN` and `CLOSING` states.
 
+Only certain state transitions are possible in normal operation depending on the inputs, so it can be modeled with as a finite state machine: a simplified diagram can be found at: <http://en.wikipedia.org/wiki/File:Tcp_state_diagram_fixed_new.svg>
+
 ## Implementations
 
 TCP is so important and time critical that it is implemented directly in the Kernel, and not on user space applications.
