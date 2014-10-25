@@ -1,10 +1,14 @@
-# Networking Tutorial
+# Networking Cheat
 
-Information on networking protocols and applications. E.g.: TCP/IP, email, Firefox, netstat, etc.
+Networking information and cheatsheets.
+
+Includes both protocols and utilities.
 
 Almost all OS specifics currently only discuss Linux. Additions of info for other OSs are welcome.
 
-This file is a big dump of stuff that is too small to fit anywhere else.
+Search for key terms in headings with:
+
+    git grep -i '# http'
 
 - [standards.md](standards.md): what are the main standards and organizations. Should be the first thing you learn.
 
@@ -40,10 +44,6 @@ Sniffers:
 - [tcpdump.md](tcpdump.md)
 - [tcpflow.md](tcpflow.md)
 - [wireshark.md](wireshark.md)
-
-You can also search for key terms in headings with commands like:
-
-    git grep '# http'
 
 ## Sources
 
