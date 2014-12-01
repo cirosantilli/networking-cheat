@@ -2,6 +2,8 @@
 
 Cheat on the apache server.
 
+Documentation: <http://httpd.apache.org/docs/>
+
 Test apache:
 
     firefox http://localhost/ &
@@ -293,9 +295,9 @@ It is possible to combine multiple section scopes:
 
 Allow to create virtual paths to dirs and files.
 
-### sources
+### Sources
 
-Man: <http://httpd.apache.org/docs/2.2/mod/mod_alias.html>
+<http://httpd.apache.org/docs/2.2/mod/mod_alias.html>
 
 Create virtual directory:
 
@@ -357,19 +359,9 @@ The following goes to google:
 
 ### CGI
 
-*CGI* is a protocol of how a server communicates with a CGI script.
+#### FastCGI
 
-A CGI script is simply a script/executable that outputs the part of HTTP response.
-
-This part includes some last header lines which the server delegates to it, notably `content type`, followed by "\n\n" followed by the entire body.
-
-The server passes information to the script through environment variables only.
-
-#### fastcgi
-
-A faster version of CGI that does not start a new process pre request
-
-Implementations: mod_fastcgi vs mod_fcgid <http://superuser.com/questions/228173/whats-the-difference-between-mod-fastcgi-and-mod-fcgid>
+Implementations: `mod_fastcgi`, `mod_fcgid`. Vs: <http://superuser.com/questions/228173/whats-the-difference-between-mod-fastcgi-and-mod-fcgid>
 
 #### ScriptAlias
 

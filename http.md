@@ -40,7 +40,7 @@ Quoting the spec:
 
 Since UDP is not "reliable transport", it should not be used.
 
-HTTP is a synchronous request-response protocol <https://en.wikipedia.org/wiki/Request-response>:
+HTTP is a synchronous request-response protocol <https://en.wikipedia.org/wiki/Request-response>. A simplified transaction goes like this:
 
 - client opens the connection with 3-way handshake
 - client sends the request
@@ -50,6 +50,14 @@ HTTP is a synchronous request-response protocol <https://en.wikipedia.org/wiki/R
 - client closes
 
 To observe a sample transaction, use Wireshark, chose a page that requires a single request like `example.com` (no images or CSS for example), then `curl example.com` and filter the Wireshark output by address `ip.addr == 93.184.216.119`.
+
+### Connection header
+
+### Keep-Alive
+
+### Persistent connection
+
+In HTTP 1.1, multiple HTTP requests are done by default on a single connection, since almost all pages require the loading of multiple resources from a single server: image, CSS, etc. In `HTTP 1.0`, this had to be indicated through the `Connection: Keep-Alive` header, which most browsers still send as of 2014.
 
 ## Newlines
 
@@ -103,13 +111,19 @@ Determines in general terms what the request is about.
 
 RFC 2616 specifies the following methods:
 
-- `GET`:    get information from server
-- `HEAD`:   only get header information from server
-- `POST`:   send data to server to create new objects. E.g.: you click on the submit button of an HTML `form` with `method="post"`.
-- `PUT`:    update or create entire objects on server. Both PUT and POST can be used to create object, but `PUT` is *idempotent*.
-- `DELETE`: remove objects from server.
-- `TRACE`:
-- `CONNECT`:
+- `GET`: get information from server
+
+- `HEAD`: only get header information from server
+
+- `POST`: send data to server to create new objects. E.g.: you click on the submit button of an HTML `form` with `method="post"`.
+
+- `PUT`: update or create entire objects on server. Both PUT and POST can be used to create object, but `PUT` is *idempotent*.
+
+- `DELETE`: remove objects from server. Idempotent.
+
+- `TRACE`: TODO
+
+- `CONNECT`: TODO
 
 There are also proposed methods in other RFCs:
 
@@ -195,6 +209,10 @@ By default, the new request should not change the initial method, unless stated 
 If the new method would not be a `GET` or `HEAD` request, the UA can only carry it out if it is possible to ask for confirmation from the user, since something like `POST` may have unwanted consequences.
 
 User agents should detect infinite redirect loops.
+
+###### Post Redirect Get pattern
+
+<http://en.wikipedia.org/wiki/Post/Redirect/Get>
 
 ###### 301
 
@@ -292,6 +310,92 @@ Certain headers can only be used on requests, other only on responses, and a few
 
 Headers are case insensitive. A common style is to capitalize the first letter of each word.
 
+### Headers that can be used on both request and response
+
+#### Content-Type
+
+The MIME type of the data being sent on the body.
+
+Large list with simple explanations: <http://en.wikipedia.org/wiki/Internet_media_type#Type_text>
+
+-   `text/html`: HTML document. Browsers interpret body as HTML and renders it.
+
+-   `application/xhtml+xml`: XHTML.
+
+-   `text/plain`: browser pastes to screen, no HTML rendering. So you will see tags like `<h1>` on screen.
+
+-   `application/x-www-form-urlencoded`: key value pairs in the same format that can be given on an URL.
+
+    The default `content-type` for `method="post"` on HTML forms.
+
+    The `content-type` can be modified via the `enctype` `form` attribute.
+
+-   `application/json`: popular choice for rest APIs. Used on the GitHub API.
+
+-   `text/css`
+
+-   `application/pdf`
+
+-   `application/javascript`
+
+-   `application/octet-stream`: TODO
+
+##### multipart/form-data
+
+Specified at RFC 2388 <http://www.ietf.org/rfc/rfc2388>.
+
+Encapsulates multiple header / body pairs into one body HTTP body.
+
+Advantage of `multipart/form-data`:
+
+-   Huge memory savings for binary files, in which:
+
+    - many bytes would have to be URL encoded for `application/x-www-form-urlencoded` (3 bytes per encoded byte).
+
+    - the size would be 33% larger with `application/x-www-form-urlencoded` + `base64` encode.
+
+Disadvantages of `multipart/form-data`:
+
+-   Each field has a data overhead for the boundary and the sub headers.
+
+    This is easily overcome by memory gains of using it if there is a file.
+
+Therefore: use it iff upload of a binary file is possible on the request.
+
+Sample request: <http://stackoverflow.com/a/23518189/895245>
+
+##### boundary
+
+This is the only type of request does not have an empty line after the headers: `boundary` comes directly.
+
+`boundary` specifies a sequence of bytes which separates each of the bodies.
+
+The boundary is always surrounded by CRLFs which are not part of the data.
+
+The boundary cannot appear inside the data: the user agent must chose it appropriately.
+
+The trailing hyphens of the boundary are often added for partial backward compatibility with older multipart RFCs, and to improve readability. TODO are they mandatory?
+
+#### Content-Length
+
+Length of the body in bytes.
+
+Very important when body is present because it allows the receiver to allocate memory at once.
+
+Was mandatory on HTTP 1.0, but on HTTP 1.1 may be replaced on `Transfer-Encoding: chunked`.
+
+TODO mandatory if body is present?
+
+#### Content-Encoding
+
+Must be one of the request `Accept-Encoding` values.
+
+-   `gzip`: the content was gzipped before sending it to the browser.
+
+    Supported by almost all modern browsers: Firefox sends it by default, Apache has `mod_gzip` which gzips everything when possible.
+
+
+
 ### Request headers
 
 #### Host
@@ -356,55 +460,27 @@ Firefox 29:
 
 `keep-alive`: TODO
 
+#### Extensions
+
+##### Forwarded-For
+
+<http://en.wikipedia.org/wiki/X-Forwarded-For>
+
+Usually set by reverse proxies.
+
+Holds the IP of the original request.
+
 ### Response headers
 
-#### Content-Type
+#### Transfer-Encoding
 
-The MIME type of the data being sent on the body.
-
-Large list with simple explanations: <http://en.wikipedia.org/wiki/Internet_media_type#Type_text>
-
--   `text/html`: HTML document. Browsers interpret body as HTML and renders it.
-
--   `application/xhtml+xml`: XHTML.
-
--   `text/plain`: browser pastes to screen, no HTML rendering. So you will see tags like `<h1>` on screen.
-
--   `application/x-www-form-urlencoded`: key value pairs in the same format that can be given on an URL.
-
-    The default `content-type` for `method="post"` on HTML forms.
-
-    The `content-type` can be modified via the `enctype` `form` attribute.
-
--   `application/json`: popular choice for rest APIs. Used on the GitHub API.
-
--   `text/css`
-
--   `application/pdf`
-
--   `application/javascript`
-
-#### Content-Length
-
-Length of the body in bytes.
-
-Very important when body is present because it allows the receiver to allocate memory at once.
-
-TODO mandatory if body is present?
-
-#### Content-Encoding
-
-Must be one of the request `Accept-Encoding` values.
-
--   `gzip`: the content was gzipped before sending it to the browser.
-
-    Supported by almost all modern browsers: Firefox sends it by default, Apache has `mod_gzip` which gzips everything when possible.
+TODO vs `Content-Encoding`?
 
 #### Content-Disposition
 
-Suggests to the browser what to do to certain types of data, specially content types different from HTML:
+Suggests to the browser what to do to certain types of data
 
-`attachment` suggest to the browser to download the file with given filename:
+`attachment` suggests to the browser to download the file with given filename:
 
     Content-Disposition: attachment; filename=genome.jpeg;
 
@@ -413,6 +489,8 @@ Suggests to the browser what to do to certain types of data, specially content t
     Content-Disposition: inline
 
 In Firefox, the browser preferences under `Edit > Preferences > Application` determine what to do for each MIME type, and overrides this header.
+
+<http://i8jesus.com/?p=64> suggests that `Content-Disposition` is not sufficient protection from [unrestricted file upload](https://www.owasp.org/index.php/Unrestricted_File_Upload) XSS.
 
 #### Server
 
@@ -423,42 +501,6 @@ Software that sent the response.
 
 Not mandatory: Facebook does not return it.
 
-#### multipart/form-data
-
-Specified at RFC 2388 <http://www.ietf.org/rfc/rfc2388>.
-
-Encapsulates multiple header / body pairs into one body HTTP body.
-
-Advantage of `multipart/form-data`:
-
--   Huge memory savings for binary files, in which:
-
-    - many bytes would have to be URL encoded for `application/x-www-form-urlencoded` (3 bytes per encoded byte).
-
-    - the size would be 33% larger with `application/x-www-form-urlencoded` + `base64` encode.
-
-Disadvantages of `multipart/form-data`:
-
--   Each field has a data overhead for the boundary and the sub headers.
-
-    This is easily overcome by memory gains of using it if there is a file.
-
-Therefore: use it iff upload of a binary file is possible on the request.
-
-Sample request: <http://stackoverflow.com/a/23518189/895245>
-
-##### boundary
-
-This is the only type of request does not have an empty line after the headers: `boundary` comes directly.
-
-`boundary` specifies a sequence of bytes which separates each of the bodies.
-
-The boundary is always surrounded by CRLFs which are not part of the data.
-
-The boundary cannot appear inside the data: the user agent must chose it appropriately.
-
-The trailing hyphens of the boundary are often added for partial backward compatibility with older multipart RFCs, and to improve readability. TODO are they mandatory?
-
 #### Referer
 
 Sent by the UA containing the page from which the request was sent, so in the case of hyperlinks the page who refered the user to the new one.
@@ -468,6 +510,22 @@ Optional, so don't rely on it: <http://stackoverflow.com/questions/6023941/how-r
 Was originally misspelled as `referrer`, with two R's on older specs, but this has been corrected in newer specs.
 
 Used by Rails `redirect_to :back` shortcut.
+
+#### Extensions
+
+##### Sendfile
+
+##### Accel
+
+<http://wiki.nginx.org/X-accel>
+
+<https://tn123.org/mod_xsendfile/>
+
+If the response contains this header, the rest of the response is ignored and the file is served instead, and the server uses all of it's optimizations.
+
+Normally this the reverse proxy is configured to consider this header only on the response of the server.
+
+This header is useful for serving static files for which the server has to control access: there fore the request must pass through the server first. But it is inefficient to serve files from the backend server, so the backend server passes this header and delegates to the reverse proxy.
 
 ### CORS headers
 

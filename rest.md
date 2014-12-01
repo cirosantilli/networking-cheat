@@ -9,6 +9,14 @@ Good way to learn: see famous APIs:
 - GitHub: <https://developer.github.com/v3/>
 - Dropbox: <https://www.dropbox.com/developers/core/docs>
 
+## GET with a body
+
+You can send a body on any request, but it should be ignored for GET.
+
+There is no good workaround: maybe the best is using a PUT instead.
+
+<http://stackoverflow.com/questions/978061/http-get-with-request-body>
+
 ## File upload
 
 ### Together with other data

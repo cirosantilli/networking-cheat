@@ -52,10 +52,10 @@ The default log file for the server is: `/var/log/auth.log`, which is shared by 
 
 The client connects to a server to give shell access on the server.
 
-Make sure that the configuration file is correct:
+Make sure that the configuration files are correct:
 
-    sudo cp  /etc/ssh/ssh_config{,.bak}
-    sudo vim /etc/ssh/ssh_config
+    /etc/ssh/ssh_config{,.bak}
+    ~/.ssh/config
 
 Get the version of your ssh client:
 
@@ -109,6 +109,36 @@ The default is 22 specified by IANA, so don't change it if you can avoid it.
 
 It is *not* possible to set ports via the common URL syntax: `ssh host:22`.
 
+### Client configuration
+
+    man ssh_config
+
+Different keys for different hosts:
+
+    Host server1.nixcraft.com
+      IdentityFile ~/backups/.ssh/id_dsa
+    Host server2.nixcraft.com
+      IdentityFile /backup/home/userName/.ssh/id_rsa
+
+Different keys for different website users with the same SSH username (e.g. on GitHub every git operation is done with the user `git` for every user): <http://stackoverflow.com/questions/7927750/specify-an-ssh-key-for-git-push-without-using-ssh-config>
+
+    Host github-user1
+      HostName github.com
+      User git
+      IdentityFile /home/USER/.ssh/id_rsa_github_user1
+      IdentitiesOnly yes
+
+    Host github-user2
+      HostName github.com
+      User git
+      IdentityFile /home/USER/.ssh/id_rsa_github_user2
+      IdentitiesOnly yes
+
+and then:
+
+    git remote add alice git@gitolite-as-alice:whatever.git
+    git remote add bob git@gitolite-as-bob:whatever.git
+
 ## authorized_keys
 
 List of public keys accepted by server for login as a given user.
@@ -123,7 +153,8 @@ In addition to the allowed key, each line can also contain extra options that co
 
 Non-obvious options above include:
 
-- only connections coming from `ok.com` will be accepted
+- `command="command"`: fixes a single command to be run to restrict what uses can do. This command is crucial for GitLab's (and likely GitHub's) SSH system, where SSH can only be used for Git operations, and always calls: <https://github.com/gitlabhq/gitlab-shell/blob/cc193ea45d8d0651fe09fc93bb1417eaac50c2ff/bin/gitlab-shell>
+- only connections coming from `ok.com` will be accepted.
 
 Options are documented with the server at `man sshd` since they are only used by the server.
 
@@ -146,7 +177,7 @@ Generates public and private key pairs for use with ssh.
 
 Generate an RSA public private pair:
 
-    ssh-keygen -t rsa -C "you@email.com"
+    ssh-keygen -f ~/.ssh/id_rsa -t rsa -C "you@email.com"
 
 By default the keys are put under `~/.ssh` with names `id_rsa` for the private and `id_rsa.pub` and have length 1024 bits.
 
@@ -155,6 +186,8 @@ By default the keys are put under `~/.ssh` with names `id_rsa` for the private a
 *Never* share your private key! It is like a password that allows you to connect to servers.
 
 There can be only one key per file.
+
+When you invoke `ssh`, it will always use the same key by default, but you can configure it to use different keys in different connections.
 
 The formats are for the public key:
 
@@ -166,7 +199,7 @@ For the private key:
     <key>
     -----END RSA PRIVATE KEY-----
 
-The actual data format a bit more involved. Discussion [here](http://stackoverflow.com/questions/12749858/rsa-public-key-format). Basically the data is Base64 encoded, and it also contains some necessary algorithm metadata.
+The actual data format a bit more involved. Discussion [here](http://stackoverflow.com/questions/12749858/rsa-public-key-format). Basically the data is Base 64 encoded, and it also contains some necessary algorithm metadata.
 
 Often used to determine if a key is present or not is the key's fingerprint, which are just hashes of the keys.
 
