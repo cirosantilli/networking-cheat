@@ -30,6 +30,29 @@ Many modifications have since been made through other RFCs:
 - PATCH method <https://tools.ietf.org/html/rfc5789>
 - `multipart/form-data` `content-type` <http://www.ietf.org/rfc/rfc2388>
 
+## Example
+
+TODO simple concrete example to tie in all concepts for a beginner.
+
+A sample GET request that a browser can send to a server looks like:
+
+    TODO
+
+A sample POST request that a browser can send to a server looks like:
+
+    TODO
+
+## Minimal HTTP request
+
+<http://serverfault.com/questions/163511/what-is-the-mandatory-information-a-http-request-header-must-contain>
+
+    GET / HTTP/1.1
+    Host: example.com
+
+Or more precisely:
+
+    printf 'GET / HTTP/1.1\r\nHost: example.com\r\n\r\n' | nc example.com 80
+
 ## Transport
 
 By far the most common is TCP, not UDP: <http://stackoverflow.com/questions/323351/does-http-use-udp>
@@ -44,12 +67,29 @@ HTTP is a synchronous request-response protocol <https://en.wikipedia.org/wiki/R
 
 - client opens the connection with 3-way handshake
 - client sends the request
-- server replies with ACK and reply
-- client ACK
-- server closes
-- client closes
+- server ACKs the request
+- server send the reply
+- client ACKs the reply
+- client makes further requests (images, CSS, etc.) until satisfied, and server replies
+- client starts the closing handshake
 
-To observe a sample transaction, use Wireshark, chose a page that requires a single request like `example.com` (no images or CSS for example), then `curl example.com` and filter the Wireshark output by address `ip.addr == 93.184.216.119`.
+To observe a transaction in detail, use Wireshark:
+
+- set a Wireshark display filter by address `ip.host == example.com`
+- `curl example.com`
+
+It says that the connection went like this:
+
+    192.168.0.10    example.com      TCP     47996 > http [SYN] Seq=0
+    example.com     192.168.0.10     TCP     http > 47996 [SYN, ACK] Seq=0 Ack=1
+    192.168.0.10    example.com      TCP     47996 > http [ACK] Seq=1 Ack=1
+    192.168.0.10    example.com      HTTP    GET / HTTP/1.1
+    example.com     192.168.0.10     TCP     http > 47996 [ACK] Seq=1 Ack=76
+    example.com     192.168.0.10     HTTP    HTTP/1.1 200 OK  (text/html)
+    192.168.0.10    example.com      TCP     47996 > http [ACK] Seq=76 Ack=1592
+    192.168.0.10    example.com      TCP     47996 > http [FIN, ACK] Seq=76 Ack=1592
+    example.com     192.168.0.10     TCP     http > 47996 [FIN, ACK] Seq=1592 Ack=77
+    192.168.0.10    example.com      TCP     47996 > http [ACK] Seq=77 Ack=1593
 
 ### Connection header
 
@@ -59,19 +99,63 @@ To observe a sample transaction, use Wireshark, chose a page that requires a sin
 
 In HTTP 1.1, multiple HTTP requests are done by default on a single connection, since almost all pages require the loading of multiple resources from a single server: image, CSS, etc. In `HTTP 1.0`, this had to be indicated through the `Connection: Keep-Alive` header, which most browsers still send as of 2014.
 
+Demo:
+
+Two replies, not mandatory on 1.1:
+
+    (
+      printf 'GET / HTTP/1.1\r\nHost: example.com\r\n\r\n';
+      printf 'GET / HTTP/1.1\r\nHost: example.com\r\n\r\n';
+    ) | nc example.com 80 | grep HTTP
+
+Output:
+
+    HTTP/1.1 200 OK
+    HTTP/1.1 200 OK
+
+And Wireshark tells me the connection went like this:
+
+    192.168.0.10    example.com     TCP      47741 > http [SYN] Seq=0
+    example.com     192.168.0.10    TCP      http > 47741 [SYN, ACK] Seq=0 Ack=1
+    192.168.0.10    example.com     TCP      47741 > http [ACK] Seq=1 Ack=1
+    192.168.0.10    example.com     HTTP     GET / HTTP/1.1 GET / HTTP/1.1
+    192.168.0.10    example.com     TCP      47741 > http [FIN, ACK] Seq=75 Ack=1
+    example.com     192.168.0.10    TCP      http > 47741 [ACK] Seq=1 Ack=75
+    example.com     192.168.0.10    HTTP     HTTP/1.1 200 OK  (text/html)
+    192.168.0.10    example.com     TCP      47741 > http [ACK] Seq=76 Ack=1592
+    example.com     192.168.0.10    HTTP     HTTP/1.1 200 OK  (text/html)
+    192.168.0.10    example.com     TCP      47741 > http [ACK] Seq=76 Ack=3183
+    example.com     192.168.0.10    TCP      http > 47741 [FIN, ACK] Seq=3183 Ack=76
+    192.168.0.10    example.com     TCP      47741 > http [ACK] Seq=76 Ack=3184
+
+so single `SYN` and thus single connection.
+
+On HTTP 1.0, `Keep-Alive` is mandatory:
+
+    (
+      printf 'GET / HTTP/1.0\r\nHost: example.com\r\n\r\n';
+      printf 'GET / HTTP/1.0\r\nHost: example.com\r\n\r\n';
+    ) | nc example.com 80 | grep HTTP
+
+Output:
+
+    HTTP/1.1 200 OK
+
+Two replies:
+
+    (
+      printf 'GET / HTTP/1.0\r\nHost: example.com\r\nConnection: keep-alive\r\n\r\n';
+      printf 'GET / HTTP/1.0\r\nHost: example.com\r\nConnection: keep-alive\r\n\r\n';
+    ) | nc example.com 80 | grep HTTP
+
+Output:
+
+    HTTP/1.1 200 OK
+    HTTP/1.1 200 OK
+
 ## Newlines
 
 Every newline is a CRLF. Tools such as `curl` convert `\n` to `\r\n`.
-
-## Request and response
-
-A sample GET request that a browser can send to a server looks like:
-
-    TODO
-
-A sample POST request that a browser can send to a server looks like:
-
-    TODO
 
 ## First line
 
@@ -98,11 +182,14 @@ Where:
 ### Initial response line
 
     HTTP/1.0 200 OK
+    ^        ^   ^
     1        2   3
 
-1. version
-2. status code. Programmatic use, so get it right.
-3. Reason Phrase. Each status code has a default reason phrase,
+1.  protocol and version
+
+2.  status code. Programmatic use, so get it right.
+
+3.  Reason Phrase. Each status code has a default reason phrase,
     but any phrase may be used, the value is not fixed by the protocol.
 
 #### Method
@@ -394,8 +481,6 @@ Must be one of the request `Accept-Encoding` values.
 
     Supported by almost all modern browsers: Firefox sends it by default, Apache has `mod_gzip` which gzips everything when possible.
 
-
-
 ### Request headers
 
 #### Host
@@ -406,9 +491,29 @@ With `curl http://localhost:8000`:
 
     Host: localhost:8000
 
-With `curl http://google.com`
+The port should be included if it's not the default `80`: <http://stackoverflow.com/questions/3364144/is-port-number-required-in-http-host-header-parameter>
+
+With `curl 127.0.0.1`:
+
+    Host: 127.0.0.1
+
+With `curl http://google.com`:
 
     Host: google.com
+
+Some hosts are very picky about the `Host` header. E.g., `example.com` give a 404 if you don't set it, or set it wrong:
+
+    curl `dig +short example.com`
+
+results in 404, while:
+
+    curl example.com
+
+works.
+
+The purpose of this annoying mandatory header is to allow for name based virtual hosting: <http://en.wikipedia.org/wiki/Virtual_hosting>, i.e., multiple hostnames on a single IP.
+
+TODO: how are browsers able to decide this? If you click on a link, browsers send the same `Host` as the hostname. Is it possible to change that?
 
 #### User-Agent
 
@@ -549,15 +654,17 @@ After 2012: cross your fingers and pick a name.
 
 ## Body
 
+TODO
+
 ## HTTPS
 
-Asymmetric key encryption between server and client.
+HTTP over TLS.
 
 Encrypts both body and headers.
 
 Downside: encrypt/decrypt costs time.
 
-Main usage: security critical operations such as password exchanges.
+HTTPS runs on port 443 instead of 80.
 
 ## HTTP authentication
 
@@ -633,7 +740,7 @@ Authentication is sent on the header md5 hashed:
 
 Data is appended to the authentication with `:` before hashing:
 
-- domain (<www.google.com>)
+- domain (`www.google.com`)
 - method (GET, POST, etc.)
 - nonce
 - nonce is sent to client from server.

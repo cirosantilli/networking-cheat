@@ -137,12 +137,6 @@ Host is referred to as "computer name". Good name choice, that is exactly what h
 
     wmic computersystem where name="%COMPUTERNAME%" call rename name="NEW-NAME"
 
-## dig
-
-CLI utility that shows complete path of domain to IP resolution, as it passes through multiple CNAMEs.
-
-TODO
-
 ## Zone file
 
 When you register for a domain of your own, you will start thinking about this: it is the main setting on your registrar interface.
@@ -192,3 +186,7 @@ A way to update DNS as IPs change.
 Useful for example if you want to give a hostname for your home network, in which the IP is dynamic for most ISPs. A DDNS service like <http://www.noip.com> can give you a persistent hostname anyways.
 
 TODO what is it exactly? How does it work? A protocol? Part of DNS?
+
+## Tools
+
+- dig

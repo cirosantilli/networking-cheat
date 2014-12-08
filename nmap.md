@@ -2,6 +2,8 @@
 
 Port scanner: show open ports, state and service name associated to the port.
 
+Great way to start deciding how to go about hacking someone.
+
 Ubuntu 12.04 install:
 
     sudo aptitude install nmap

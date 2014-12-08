@@ -10,40 +10,51 @@ Search for key terms in headings with:
 
     git grep -i '# http'
 
-- [standards.md](standards.md): what are the main standards and organizations. Should be the first thing you learn.
+- [Standards](standards.md): what are the main standards and organizations. Should be the first thing you learn.
 
 Protocols, concepts and closely related tools:
 
-- [arp.md](arp.md)
-- [dhpc.md](dhpc.md):         DHPC, static IPs
-- [hostname.md](hostname.md): DNS, domains
-- [http.md](http.md)
-- [ip.md](ip.md):             IPv4, IPv6, IGMP
-- [jargon.md](jargon.md)
-- [port.md](port.md)
-- [rest.md](rest.md):         restful API best practices
-- [tcp.md](tcp.md):           TCP, UDP
-- [tls.md](tls.md):           TLS, SSL
-- [url.md](url.md):           URL, URI
+- [ARP](arp.md)
+- [DHPC](dhpc.md): DHPC, static IPs
+- [Hostname](hostname.md)
+- [DNS](dns.md)
+- [HTTP](http.md)
+- [IP](ip.md): IPv4, IPv6, IGMP
+- [Jargon](jargon.md)
+- [Port](port.md)
+- [Proxy server](proxy-server.md)
+- [REST](rest.md): restful API best practices
+- [TCP](tcp.md): TCP, UDP
+- [TLS](tls.md): TLS, SSL
+- [URL](url.md): URL, URI
 
 Tools:
 
-- [apache.md](apache.md):                Apache configuration
-- [curl.md](curl.md)
-- [ifconfig.md](ifconfig.md)
-- [nmap.md](nmap.md)
-- [netcat.md](netcat.md)
-- [netstat.md](netstat.md)
-- [network-manager.md](work-manager.md): NetworkManager
-- [ping.md](ping.md)
-- [ssh.md](ssh.md)
-- [wget.md](wget.md)
+- [cURL](curl.md)
+- [dig](dig.md)
+- [ifconfig](ifconfig.md)
+- [iptables](iptables.md)
+- [nmap](nmap.md)
+- [Netcat](netcat.md)
+- [netstat](netstat.md)
+- [network-manager](work-manager.md): NetworkManager
+- [OpenSSL](openssl.md)
+- [ping](ping.md)
+- [ssh](ssh.md)
+- [wget](wget.md)
+
+Servers:
+
+- [Apache](apache.md)
+- [Nginx](nginx.md)
+- [Squid](squid.md)
 
 Sniffers:
 
-- [tcpdump.md](tcpdump.md)
-- [tcpflow.md](tcpflow.md)
-- [wireshark.md](wireshark.md)
+- [TShark](tshark.md)
+- [tcpdump](tcpdump.md)
+- [tcpflow](tcpflow.md)
+- [Wireshark](wireshark.md)
 
 ## Sources
 

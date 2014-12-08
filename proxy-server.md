@@ -33,3 +33,9 @@ Rails and Django are ineffective at serving static files, while Apache and Nginx
 So you set up Apache or Nginx to serve every static file request under `/assets` from a directory, and pass the others to the server.
 
 Another thing that those RPs do is load balancing, i.e. sending requests to the server that is the least loaded. TODO how?
+
+## Transparent proxy
+
+A transparent proxy is one that does not modify the request unless strictly necessary.
+
+The term is defined on <http://tools.ietf.org/html/rfc2616#section-1.3>

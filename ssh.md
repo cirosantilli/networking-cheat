@@ -2,16 +2,22 @@
 
 Protocol like telnet, but encrypted
 
-Predominant implementation: OpenSSH, open source.
+For SSH to work you will need:
 
-For ssh to work you will need:
-
-- a ssh server running on a machine.
-- a ssh client running on another machine.
+- a SSH server running on a machine.
+- a SSH client running on another machine.
 
 It is possible to do tests using `localhost` on a single machine.
 
 Per user configurations for both the server and the client are contained under `~/.ssh`
+
+## Implementations
+
+<http://www.openssh.com/>
+
+OpenSSH is the most important implementation on Linux.
+
+OpenSSH used to depend on part OpenSSL, but that dependency was removed: <http://security.stackexchange.com/questions/3424/how-is-openssl-related-to-openssh>
 
 ## Server
 

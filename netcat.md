@@ -6,13 +6,37 @@ Low level send and receive TCP/UDP data.
 
 Executable name.
 
-In Ubuntu 12.04, `netcat` and `nc` are symlinks to `nc.openbsd`.
+In Ubuntu 12.04, `netcat` and `nc` are both symlinks to `nc.openbsd`.
 
----
+## Basic usage
 
 Make a TCP HTTP get request and print the response:
 
-    printf 'GET / HTTP/1.0\r\n\r\n' | nc example.com 80
+    printf 'GET / HTTP/1.1\r\nHost: example.com\r\n\r\n' | nc example.com 80
+
+## Multiple requests
+
+`nc` sends lines as you type them and over a single TCP connection:
+
+    (
+      printf 'GET / HTTP/1.1\r\nHost: example.com\r\n\r\n';
+      sleep 2;
+      printf 'GET / HTTP/1.1\r\nHost: example.com\r\n\r\n';
+    ) | nc example.com 80
+
+Interesting to note how `Connection: keep-alive` is mandatory for HTTP 1.0:
+
+    (
+      printf 'GET / HTTP/1.0\r\nHost: example.com\r\n\r\n';
+      sleep 2;
+      printf 'GET / HTTP/1.0\r\nHost: example.com\r\n\r\n';
+    ) | nc example.com 80
+
+    (
+      printf 'GET / HTTP/1.0\r\nHost: example.com\r\nConnection: keep-alive\r\n\r\n';
+      sleep 2;
+      printf 'GET / HTTP/1.0\r\nHost: example.com\r\nConnection: keep-alive\r\n\r\n';
+    ) | nc example.com 80
 
 ## u
 
@@ -50,11 +74,15 @@ Same with another `nc` instead of curl:
 
     echo 'abc' | nc localhost 8000
 
+### ECHO server
+
 To do multiple tests of what is being sent, just wrap in a while and give an empty reply:
 
     while true; do printf '' | nc -l localhost 8000; done
 
 If `-l` is given, then the hostname is optional. If the hostname is not given, `nc` listens on all interfaces (TODO confirm).
+
+More advanced one that does multiple connections: <http://stackoverflow.com/questions/8375860/echo-server-with-bash>
 
 ## v
 
@@ -86,16 +114,29 @@ Terminal 1 has printed:
     abc
     def
 
-## echo server with nc
+## HTTPS
 
-It does not seem possible to emulate an echo server with `nc`, only `ncat`: <http://stackoverflow.com/questions/8375860/echo-server-with-bash>
+Not possible with `nc`:
+
+    printf 'GET / HTTP/1.0\r\n\r\n' | nc google.com 443
+
+Returns empty.
+
+Consider `openssl`:
+<http://superuser.com/questions/346958/can-the-telnet-netcat-client-communicate-over-ssl>
 
 ## ncat
 
-`nc` version form `nmap` package.
-
-Options that it has and `nc` does not: TODO.
+`nc` version from `nmap` package.
 
 ### c
 
 Construct response with command.
+
+### ssl
+
+TODO: why does this give 303?
+
+    printf 'GET / HTTP/1.1\r\n\r\n' | ncat --ssl github.com 443
+
+### HTTPS

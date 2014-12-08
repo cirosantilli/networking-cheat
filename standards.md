@@ -8,6 +8,8 @@ Internet Engineering Task Force.
 
 Specifies many important IPS transport and internet layer protocols, in particular IP and HTTP, thus a large part of standards discussed in this project.
 
+Be wary of the Aprils Fool RFCs! <http://en.wikipedia.org/wiki/April_Fools%27_Day_Request_for_Comments> They are formated exactly like regular RFCs: <http://tools.ietf.org/html/rfc6592> It things start looking weird, check if the date is not April 1st.
+
 ### RFC 2199
 
 ### Key words

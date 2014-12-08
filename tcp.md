@@ -164,3 +164,7 @@ Only certain state transitions are possible in normal operation depending on the
 ## Implementations
 
 TCP is so important and time critical that it is implemented directly in the Kernel, and not on user space applications.
+
+### Manually send bytes
+
+TODO Do you need a kernel module to tamper the exact TCP bytes?

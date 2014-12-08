@@ -323,7 +323,7 @@ In IPv6, `::` means `0:0:0:0:0:0:0:0`, and is the *unspecified address*.
 
 For example, it appears on the `ifconfig` `Foreign address` column when there are no programs listening to a server.
 
-#### 127.0.0.0
+#### 127.0.0.1
 
 #### Loopback
 
@@ -680,3 +680,7 @@ View kernel routing table:
 Numeric instead of names:
 
     route -n
+
+## Famous IPs
+
+-   8.8.8.8 and 8.8.8.4: <http://en.wikipedia.org/wiki/Google_Public_DNS>
