@@ -10,6 +10,8 @@ Search for key terms in headings with:
 
     git grep -i '# http'
 
+## TOC
+
 - [Standards](standards.md): what are the main standards and organizations. Should be the first thing you learn.
 
 Protocols, concepts and closely related tools:

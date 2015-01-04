@@ -258,6 +258,10 @@ If you forget to let `ForwardX11 yes`, you would get errors like:
     Error: can't open display
     Error: display not specified
 
+## Protocol
+
+TODO
+
 ## scp
 
 `cp` via SSH.
@@ -290,4 +294,4 @@ And then remove trash lines.
 
 ## sftp
 
-FTP with SSH encryption
+FTP over SSH.

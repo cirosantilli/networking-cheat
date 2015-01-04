@@ -1,4 +1,3 @@
-# Contributing guidelines
+# Contributing
 
-Use the following Markdown style:
-<https://github.com/cirosantilli/markdown-styleguide> option W2.
+Markdown style: <https://github.com/cirosantilli/markdown-styleguide> wrap:no.

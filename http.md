@@ -53,6 +53,12 @@ Or more precisely:
 
     printf 'GET / HTTP/1.1\r\nHost: example.com\r\n\r\n' | nc example.com 80
 
+## Minimal HTTP response
+
+<http://stackoverflow.com/questions/4726515/what-http-response-headers-are-required>
+
+No headers are required in all situations, although some headers are required in some situations.
+
 ## Transport
 
 By far the most common is TCP, not UDP: <http://stackoverflow.com/questions/323351/does-http-use-udp>
@@ -93,9 +99,9 @@ It says that the connection went like this:
 
 ### Connection header
 
-### Keep-Alive
+#### Keep-Alive
 
-### Persistent connection
+#### Persistent connection
 
 In HTTP 1.1, multiple HTTP requests are done by default on a single connection, since almost all pages require the loading of multiple resources from a single server: image, CSS, etc. In `HTTP 1.0`, this had to be indicated through the `Connection: Keep-Alive` header, which most browsers still send as of 2014.
 
@@ -152,6 +158,14 @@ Output:
 
     HTTP/1.1 200 OK
     HTTP/1.1 200 OK
+
+#### Close
+
+In HTTP, `Connection: Close` on the request or response
+says that the sender does not want a persistent connection.
+
+This is may be necessary because in HTTP 1.1
+the connection is persistent by default.
 
 ## Newlines
 
@@ -401,7 +415,13 @@ Headers are case insensitive. A common style is to capitalize the first letter o
 
 #### Content-Type
 
+<http://tools.ietf.org/html/rfc2616#section-14.17>
+
 The MIME type of the data being sent on the body.
+
+Not mandatory, but almost always provided since it is very helpful to the client.
+
+If not present, the client can read the data and try to decide the content type.
 
 Large list with simple explanations: <http://en.wikipedia.org/wiki/Internet_media_type#Type_text>
 
@@ -465,13 +485,13 @@ The trailing hyphens of the boundary are often added for partial backward compat
 
 #### Content-Length
 
+<http://tools.ietf.org/html/rfc2616#section-14.13>
+
 Length of the body in bytes.
 
 Very important when body is present because it allows the receiver to allocate memory at once.
 
-Was mandatory on HTTP 1.0, but on HTTP 1.1 may be replaced on `Transfer-Encoding: chunked`.
-
-TODO mandatory if body is present?
+Was mandatory on HTTP 1.0, but not on HTTP 1.1, where `Transfer-Encoding: chunked` was added, and it is specified that clients can simply read up to the connection close if it is not given.
 
 #### Content-Encoding
 
@@ -480,6 +500,48 @@ Must be one of the request `Accept-Encoding` values.
 -   `gzip`: the content was gzipped before sending it to the browser.
 
     Supported by almost all modern browsers: Firefox sends it by default, Apache has `mod_gzip` which gzips everything when possible.
+
+#### Transfer-Encoding
+
+<http://tools.ietf.org/html/rfc2616#section-14.41>
+
+Vs `Content-Encoding`: `Transfer-Encoding` is a property of the way the message is transmitted,
+`Content-Encoding` is metadata about the message.
+
+For example, you could use both a transfer encoding and a content encoding on a single request.
+
+##### Chunked
+
+`Transfer-Encoding: chunked` encodes the body as follows:
+
+    printf 'HTTP/1.1 200 OK
+    Transfer-Encoding: chunked
+
+    4
+    some
+    8
+     encoded
+    15
+     text with
+    a newline
+    0
+
+    ' | sed -E 's/$/\r/' | nc -l 8000
+
+Then:
+
+    curl localhost:8000
+
+Outputs:
+
+    some encoded text with
+    a newline
+
+Each line of the body gets prefixed by the length of the line in hexadecimal on it's own line.
+
+The last line must have length `0`, followed by two CRLFs.
+
+Advantage: allows the server to respond progressively if it does not know the content length already for the `Content-Length` header.
 
 ### Request headers
 
@@ -561,10 +623,6 @@ Firefox 29:
 
     Accept-Encoding: gzip, deflate
 
-#### Connection
-
-`keep-alive`: TODO
-
 #### Extensions
 
 ##### Forwarded-For
@@ -576,10 +634,6 @@ Usually set by reverse proxies.
 Holds the IP of the original request.
 
 ### Response headers
-
-#### Transfer-Encoding
-
-TODO vs `Content-Encoding`?
 
 #### Content-Disposition
 

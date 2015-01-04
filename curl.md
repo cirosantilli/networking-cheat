@@ -23,6 +23,7 @@ cURL does not have a dry-run option built-in: <http://stackoverflow.com/question
 There are however a few options to visualize what it is doing:
 
 -   `-v` and other verbosity options.
+
 -   using `nc -l` and curl `-m 1`:
 
         nc -l localhost 8000 &
@@ -108,11 +109,13 @@ Overrides default cURL headers.
 
 ### i
 
-Show received HTTP header received.
+Show received HTTP headers.
 
 Example:
 
     curl -i google.com
+
+TODO vs `-D -`
 
 ### I
 
@@ -194,3 +197,34 @@ Specify proxy server:
 Download iff the file was modified after given date time:
 
     curl -z 01-Jan-00 google.com
+
+## raw
+
+Don't decode HTTP specific `Content-Encoding` and `Transfer-Encoding`.
+
+E.g.:
+
+    printf 'HTTP/1.1 200 OK
+    Transfer-Encoding: chunked
+
+    2
+    hi
+    0
+
+    ' | sed -E 's/$/\r/' | nc -l 8000
+
+Without raw:
+
+    curl localhost 8000
+
+we see the decoded body:
+
+    hi
+
+With `--raw`, we see:
+
+    2
+    hi
+    0
+    (newline)
+    (newline)

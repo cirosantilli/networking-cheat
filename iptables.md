@@ -92,6 +92,8 @@ Happens if your system is acting as a router.
 
 Outgoing requests.
 
+#### Drop all packages
+
 Drop any packages before they are output:
 
     sudo iptables -P OUTPUT DROP
@@ -117,6 +119,17 @@ as it tried to send the request, but no response came because it was not actuall
 Restore it:
 
     sudo iptables -P OUTPUT ACCEPT
+
+#### Redirect one port another on localhost
+
+    sudo iptables -t nat -I OUTPUT -p tcp --dport 8000 -j REDIRECT --to-ports 4000
+    echo 'a' | nc -l localhost 4000
+
+Then:
+
+    echo 'b' | nc -l localhost 8000
+
+Does not work for packets going out to external servers: use `PREROUTING` instead.
 
 ## Target
 
@@ -194,11 +207,23 @@ Send some notification of the error, unlike `DROP` which is silent.
 
 Only for `-t nat`.
 
-Redirect all requests with given destination port `8000` to port `80`:
+#### Redirect outgoing requests to a localhost server
 
-    sudo iptables -t nat -A PREROUTING -p tcp --dport 8000 -j REDIRECT --to-port 80
+This is often used when you have to proxy requests to a different server. With this method, applications are unable to know that they are not talking to the desired server, and you don't have to configure anything. Great for man in the middle attacks, e.g. through mitmproxy :)
 
-TODO not doing anything
+Redirect all requests with port `80` (HTTPS) to a localhost server listening on port `8000`: TODO get working
+
+    sudo sysctl -w net.ipv4.ip_forward=1
+    sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8000
+    echo 'a' | nc -l localhost 8000
+
+Then:
+
+    echo 'b' | nc example.com 80
+
+`PREROUTING` never worked for me. The only thing I could get working was:
+
+Does not work for localhost: you need `OUTPUT` for that. TODO why? <http://serverfault.com/questions/211536/iptables-port-redirect-not-working-for-localhost>
 
 ## s
 
@@ -247,6 +272,10 @@ Specify port to act on:
 Requires `-p`.
 
 ## Sources
+
+- <http://www.netfilter.org/documentation/>. Official page. Contains links to tutorials.
+
+- <https://www.frozentux.net/iptables-tutorial/chunkyhtml/>
 
 - <http://wiki.centos.org/HowTos/Network/IPTables>
 

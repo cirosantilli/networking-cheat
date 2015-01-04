@@ -16,27 +16,15 @@ Make a TCP HTTP get request and print the response:
 
 ## Multiple requests
 
-`nc` sends lines as you type them and over a single TCP connection:
+`nc` sends lines as you type them and over a single TCP connection if the server feels like taking it (and it should on HTTP 1.1):
 
     (
       printf 'GET / HTTP/1.1\r\nHost: example.com\r\n\r\n';
       sleep 2;
       printf 'GET / HTTP/1.1\r\nHost: example.com\r\n\r\n';
-    ) | nc example.com 80
+    ) | nc example.com 80 | grep HTTP
 
-Interesting to note how `Connection: keep-alive` is mandatory for HTTP 1.0:
-
-    (
-      printf 'GET / HTTP/1.0\r\nHost: example.com\r\n\r\n';
-      sleep 2;
-      printf 'GET / HTTP/1.0\r\nHost: example.com\r\n\r\n';
-    ) | nc example.com 80
-
-    (
-      printf 'GET / HTTP/1.0\r\nHost: example.com\r\nConnection: keep-alive\r\n\r\n';
-      sleep 2;
-      printf 'GET / HTTP/1.0\r\nHost: example.com\r\nConnection: keep-alive\r\n\r\n';
-    ) | nc example.com 80
+returns 2 responses. The same could be done by manually typing the requests in.
 
 ## u
 
@@ -114,6 +102,10 @@ Terminal 1 has printed:
     abc
     def
 
+## C
+
+If the last character is a newline `\n`, replace it with CRLF.
+
 ## HTTPS
 
 Not possible with `nc`:
@@ -122,8 +114,7 @@ Not possible with `nc`:
 
 Returns empty.
 
-Consider `openssl`:
-<http://superuser.com/questions/346958/can-the-telnet-netcat-client-communicate-over-ssl>
+Consider `openssl` or `ncat` <http://superuser.com/questions/346958/can-the-telnet-netcat-client-communicate-over-ssl>
 
 ## ncat
 
@@ -133,10 +124,15 @@ Consider `openssl`:
 
 Construct response with command.
 
+### HTTPS
+
 ### ssl
 
-TODO: why does this give 303?
+    printf 'GET / HTTP/1.1\r\nHost: github.com\r\n\r\n' | ncat --ssl github.com 443
 
-    printf 'GET / HTTP/1.1\r\n\r\n' | ncat --ssl github.com 443
+As of Dec 2014, Facebook is annoying and requires a known user agent, or else you will get redirected to `/unsupportedbrowser`
 
-### HTTPS
+    printf 'GET / HTTP/1.1\r\nHost: www.facebook.com\r\nUser-Agent: Mozilla/5.0\r\n\r\n' \
+    | ncat --ssl www.facebook.com 443
+
+The `Host` is mandatory or you get a redirect. TODO why
