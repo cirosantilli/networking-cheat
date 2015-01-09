@@ -119,6 +119,10 @@ It is *not* possible to set ports via the common URL syntax: `ssh host:22`.
 
     man ssh_config
 
+File:
+
+    ~/.ssh/config
+
 Different keys for different hosts:
 
     Host server1.nixcraft.com
