@@ -225,6 +225,12 @@ You can get the fingerprint or all the fingerprints present on a file via:
     ssh-keygen -lf ~/.ssh/id_rsa.pub
     ssh-keygen -lf ~/.ssh/known_hosts
 
+### Change password for a given key
+
+Change password, possibly to an empty one <http://serverfault.com/questions/50775/how-do-i-change-my-private-key-passphrase>:
+
+    ssh-keygen -p
+
 ## Usage
 
 Once you log in, it is as if you had a shell on the given ssh server computer!
