@@ -12,6 +12,10 @@ Apache license.
 
 This is the library that was affected by the notorious 2014 Heartbleed vulnerability, which allowed theft of private keys <http://en.wikipedia.org/wiki/Heartbleed>, and affected around 17% of the encrypted network traffic of the world. It did not affect SSH though.
 
+## Alternatives
+
+[Mozilla Network Security Services (NSS)](http://en.wikipedia.org/wiki/Network_Security_Services).
+
 ## help
 
 List all commands:

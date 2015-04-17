@@ -127,3 +127,23 @@ Undo that, its silly:
 On Windows the file is:
 
     C:\Windows\System32\Drivers\Etc\hosts
+
+## Regulation aspects
+
+### Single letter domain names
+
+<http://en.wikipedia.org/wiki/Single-letter_second-level_domain>
+
+Before 1993, some of those domains were allowed. The remaining ones were then reserved, 
+
+2 letter domains are not reserved, and many are owned by major corporations. E.g. Facebook bought `fb.com` for 8 million.
+
+### Original top-level domains
+
+<http://en.wikipedia.org/wiki/List_of_Internet_top-level_domains#Original_top-level_domains>
+
+When the net started, there was only `com`, `org`, `net`, `gov`, `mil`, `int`.
+
+### Sponsored top-level domains
+
+A few domains that some groups pay for, and for which you must be in the group to have.

@@ -2,83 +2,43 @@
 
 Networking information and cheatsheets.
 
-Includes both protocols and utilities.
+Includes both protocols and utilities. Almost all OS specifics currently only discuss Linux. Additions of info for other OSs are welcome.
 
-Almost all OS specifics currently only discuss Linux. Additions of info for other OSs are welcome.
-
-Search for key terms in headings with:
-
-    git grep -i '# http'
-
-## TOC
-
-- [Standards](standards.md): what are the main standards and organizations. Should be the first thing you learn.
-
-Protocols, concepts and closely related tools:
-
-- [ARP](arp.md)
-- [DHPC](dhpc.md): DHPC, static IPs
-- [Hostname](hostname.md)
-- [DNS](dns.md)
-- [HTTP](http.md)
-- [IP](ip.md): IPv4, IPv6, IGMP
-- [Jargon](jargon.md)
-- [Port](port.md)
-- [Proxy server](proxy-server.md)
-- [REST](rest.md): restful API best practices
-- [TCP](tcp.md): TCP, UDP
-- [TLS](tls.md): TLS, SSL
-- [URL](url.md): URL, URI
-
-Tools:
-
-- [cURL](curl.md)
-- [dig](dig.md)
-- [ifconfig](ifconfig.md)
-- [iptables](iptables.md)
-- [nmap](nmap.md)
-- [Netcat](netcat.md)
-- [netstat](netstat.md)
-- [network-manager](work-manager.md): NetworkManager
-- [OpenSSL](openssl.md)
-- [ping](ping.md)
-- [ssh](ssh.md)
-- [wget](wget.md)
-
-Servers:
-
-- [Apache](apache.md)
-- [Nginx](nginx.md)
-- [Squid](squid.md)
-
-Sniffers:
-
-- [TShark](tshark.md)
-- [tcpdump](tcpdump.md)
-- [tcpflow](tcpflow.md)
-- [Wireshark](wireshark.md)
-
-## Sources
-
-### Free
-
-- <http://www.aboutdebian.com/network.htm>
-
-### Non-free
-
--   [stevens - 2012 - tcp ip illustrate volume 1 2nd edition][ste12]
-
-    Extremely clear and exemplified.
-
-    Gives due emphasis to the key points.
-
-    Great first book.
-
--   [dostalek - 2006 - Understanding tcp ip][dos06]
-
-    Explains the most important Internet protocol suite protocols deeply.
-
-    Might not be the best first TCP IP book because it is a bit advanced, but it is a very good second one once you know the basics.
-
-[dos06]: http://www.amazon.com/Understanding-TCP-IP-ebook/dp/B007TUYE0G/
-[ste12]: http://www.amazon.com/TCP-Illustrated-Volume-Addison-Wesley-Professional/dp/0321336313
+1.  [Standards](standards.md): what are the main standards and organizations
+1.  Protocols, concepts and closely related tools
+    1. [ARP](arp.md)
+    1. [DHPC](dhpc.md): DHPC, static IPs
+    1. [Hostname](hostname.md)
+    1. [DNS](dns.md)
+    1. [HTTP](http.md)
+    1. [IP](ip.md): IPv4, IPv6, IGMP
+    1. [Jargon](jargon.md)
+    1. [Port](port.md)
+    1. [Proxy server](proxy-server.md)
+    1. [REST](rest.md): restful API best practices
+    1. [TCP](tcp.md): TCP, UDP
+    1. [TLS](tls.md): TLS, SSL
+    1. [URL](url.md): URL, URI
+1.  Tools
+    1. [cURL](curl.md)
+    1. [dig](dig.md)
+    1. [ifconfig](ifconfig.md)
+    1. [iptables](iptables.md)
+    1. [nmap](nmap.md)
+    1. [Netcat](netcat.md)
+    1. [netstat](netstat.md)
+    1. [network-manager](work-manager.md): NetworkManager
+    1. [OpenSSL](openssl.md)
+    1. [ping](ping.md)
+    1. [ssh](ssh.md)
+    1. [wget](wget.md)
+1.  Servers
+    1. [Apache](apache.md)
+    1. [Nginx](nginx.md)
+    1. [Squid](squid.md)
+1.  Sniffers
+    1. [TShark](tshark.md)
+    1. [tcpdump](tcpdump.md)
+    1. [tcpflow](tcpflow.md)
+    1. [Wireshark](wireshark.md)
+1.  [Bibliography](bibliography.md)
