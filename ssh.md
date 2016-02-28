@@ -149,6 +149,15 @@ and then:
     git remote add alice git@gitolite-as-alice:whatever.git
     git remote add bob git@gitolite-as-bob:whatever.git
 
+### Password from command line
+
+Impossible?
+
+- <http://serverfault.com/questions/241588/how-to-automate-ssh-login-with-password>
+- <http://unix.stackexchange.com/questions/38737/ssh-login-with-clear-text-password-as-a-parameter>
+- <http://unix.stackexchange.com/questions/31071/shell-script-for-logging-into-a-ssh-server>
+- <http://stackoverflow.com/questions/233217/pass-password-to-su-sudo-ssh>
+
 ## authorized_keys
 
 List of public keys accepted by server for login as a given user.
@@ -305,3 +314,5 @@ And then remove trash lines.
 ## sftp
 
 FTP over SSH.
+
+OpenSSH runs it on the same port as the regular SSH connection by default, so no setup is required in addition to regular SSH.

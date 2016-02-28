@@ -228,3 +228,11 @@ With `--raw`, we see:
     0
     (newline)
     (newline)
+
+## Applications
+
+Get only response for POST: <http://stackoverflow.com/questions/10060098/getting-only-response-header-from-http-post-using-curl>
+
+Get only status of request: <http://superuser.com/questions/272265/getting-curl-to-output-http-status-code>
+
+With `HEAD` it is easy through `-I`.

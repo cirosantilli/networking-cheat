@@ -12,6 +12,13 @@ TCP/43.
 
 <http://en.wikipedia.org/wiki/Whois>
 
+## GoDaddy
+
+GoDaddy shows by default your telephone, and address!!! You can't hide it without paying!
+
+- <http://webmasters.stackexchange.com/questions/27083/hiding-whois-information-on-godaddy-registered-domainsc>
+- <http://serverfault.com/questions/220345/hiding-godaddy-domain-info-from-whois-e-g-domain-tools>
+
 ## whois utility
 
 `WHOIS` CLI interface.

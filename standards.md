@@ -10,9 +10,11 @@ Specifies many important IPS transport and internet layer protocols, in particul
 
 Be wary of the Aprils Fool RFCs! <http://en.wikipedia.org/wiki/April_Fools%27_Day_Request_for_Comments> They are formated exactly like regular RFCs: <http://tools.ietf.org/html/rfc6592> It things start looking weird, check if the date is not April 1st.
 
-### RFC 2199
+### Meta RFCs
 
-### Key words
+#### RFC 2199
+
+#### Key words
 
 Explains what the key words like `MUST`, `SHOULD` and `MAY` used in RFCs mean. Used in many many other specifications, including stuff that is not from IETF like 
 
@@ -21,6 +23,21 @@ Explains what the key words like `MUST`, `SHOULD` and `MAY` used in RFCs mean. U
 - `MUST`: obligatory
 - `SHOULD`: do it unless you have a good reason no to
 - `MAY`: completely optional: only implement if it's worth it for you
+
+#### RFC 7127
+
+Describes standards themselves.
+
+#### Proposed Standard
+
+TODO check: looks like the lowest level of acceptance. Are there others?
+
+### Category
+
+TODO? What are all the categories?
+
+- "Standards Track": regular standards, e.g.: <https://tools.ietf.org/html/rfc6236>
+- "Best current practice": meta stuff, e.g. <https://tools.ietf.org/html/rfc7127>
 
 ## IEEE
 

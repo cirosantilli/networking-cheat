@@ -1,4 +1,4 @@
-# Miscellaneous jargon
+# Vocabulary
 
 ## Last mile
 

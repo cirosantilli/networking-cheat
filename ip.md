@@ -182,14 +182,9 @@ When the router sees an address that is not in the current network, e.g. Compute
 
 If you use a router, your entire network has a single IP seen from the outside (WAN), and an internal IP for each interface seen on the private local network (LAN).
 
-Get external IP:
-
-    curl ipecho.net/plain
-    curl ifconfig.me
-
 You external IP may change or not depending on how your ISP operates. Most ISPs to modify home user's IPs from time to time to have more flexibility, but many give you the same external IP for at least several hours, making it possible for you to use it for simple development.
 
-This only matters if you want to ha external computers make requests for you, e.g. to serve a web server to the outside world. Replies to requests you make already know where to be routed back to from information sent on the request.
+This only matters if you want to have external computers make requests for you, e.g. to serve a web server to the outside world. Replies to requests you make already know where to be routed back to from information sent on the request.
 
 If you are going to use your external IP behind a router, you will need to enable port forwarding.
 
@@ -202,6 +197,14 @@ Each interface has its own IP. Therefore, a single computer can have multiple LA
 The server on the router is called **proxy server**.
 
 Internal IPs may be assigned automatically via the DHPC protocol.
+
+#### Get external IP
+
+    curl ipecho.net/plain
+    curl ifconfig.me
+
+- <http://askubuntu.com/questions/95910/command-for-determining-my-public-ip>
+- <http://unix.stackexchange.com/questions/22615/how-can-i-get-my-external-ip-address-in-bash>
 
 ### Port forwarding
 

@@ -54,3 +54,7 @@ One convenient way to write and read to ports is Netcat.
 - `53`: DNS
 - `80`: HTTP
 - `443`: HTTPS
+
+### Port 0
+
+Linux choses the first free port it can find.

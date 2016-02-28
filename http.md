@@ -53,6 +53,8 @@ Or more precisely:
 
     printf 'GET / HTTP/1.1\r\nHost: example.com\r\n\r\n' | nc example.com 80
 
+The `Host` is required, although some permissive servers may ignore it. `example.com` does not accept it.
+
 ## Minimal HTTP response
 
 <http://stackoverflow.com/questions/4726515/what-http-response-headers-are-required>

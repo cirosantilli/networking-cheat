@@ -2,11 +2,19 @@
 
 Low level send and receive TCP/UDP data.
 
+## Versions
+
+In Ubuntu 12.04, `netcat` and `nc` are both symlinks to `nc.openbsd`.
+
+There is also the `netcat-traditional` package which offers another version (TODO is it the GNU `netcat`?)
+
+<http://superuser.com/questions/324812/versions-of-netcat>
+
+This tutorial considers the BSD version by default.
+
 ## nc
 
 Executable name.
-
-In Ubuntu 12.04, `netcat` and `nc` are both symlinks to `nc.openbsd`.
 
 ## Basic usage
 

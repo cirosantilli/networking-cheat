@@ -128,6 +128,15 @@ On Windows the file is:
 
     C:\Windows\System32\Drivers\Etc\hosts
 
+## Change hostname
+
+- <http://askubuntu.com/questions/87665/how-do-i-change-the-hostname-without-a-restart>
+- <http://askubuntu.com/questions/9540/how-do-i-change-the-computer-name/704208#704208>
+
+Best method:
+
+    hostnamectl set-hostname 'new-hostname'
+
 ## Regulation aspects
 
 ### Single letter domain names
@@ -147,3 +156,13 @@ When the net started, there was only `com`, `org`, `net`, `gov`, `mil`, `int`.
 ### Sponsored top-level domains
 
 A few domains that some groups pay for, and for which you must be in the group to have.
+
+## hostname utility
+
+Get hostname:
+
+    hostname
+
+Likely same as;
+
+    cat /proc/sys/kernel/hostname

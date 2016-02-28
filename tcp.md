@@ -1,10 +1,19 @@
 # TCP and UDP
 
-## TCP vs UDP
+## UDP
 
 Different protocols, but with some common functions.
 
 Some application layer protocols include both a TCP and a UDP version, which may vary slightly, while others only have either a TCP or an UDP version. For lit of registered protocols see: <http://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers>
+
+UDP is perfect for real-time streaming media applications. In media content, it does not matter much if once in a while:
+
+- the control a user makes is not recorded by the server: the user will just redo the input
+- a frame is lost while streaming a video
+
+Lag however, which would be greater in TCP, is much more noticeable.
+
+This is in strict contrast to more precise content like text or cryptography, where missing some bytes is unacceptable.
 
 ### Acknowledgement receipt and resending
 
@@ -51,6 +60,10 @@ This means that UDP is stateless, while TCP is not: TCP client and server must k
 For this reason, UDP has less time and memory overhead, but is only used when the transaction will limit itself to a single request/answer. UDP can handle many more clients at once.
 
 Many application layer protocols however, e.g. HTTP, are stateless: they open a TCP connection, and close it as soon as they get a reply back.
+
+## Bi-directional
+
+TCP is bi-directional: once connection is established, client and server are indistinguishable.
 
 ## Fragmentation
 
@@ -133,6 +146,8 @@ The connection can half open if only one of the sides sends FIN. In that case, t
 
 ### States
 
+TCP is described by a state diagram: <http://en.wikipedia.org/wiki/File:Tcp_state_diagram_fixed_new.svg> Each side of the connection is in one of those states and obeys those transitions.
+
 There are a few predefined states which server and client can be.
 
 - `LISTEN` (server) represents waiting for a connection request from any remote TCP and port.
@@ -155,11 +170,13 @@ There are a few predefined states which server and client can be.
 
 - `TIME-WAIT` (either server or client) represents waiting for enough time to pass to be sure the remote TCP received the acknowledgment of its connection termination request. [According to RFC 793 a connection can stay in TIME-WAIT for a maximum of four minutes known as a MSL (maximum segment lifetime).]
 
+    How to finish it:
+
+    - <http://serverfault.com/questions/329845/how-to-forcibly-close-a-socket-in-time-wait>
+
 - `CLOSED` (both server and client) represents no connection state at all.
 
 TODO: understand precisely the `FIN` and `CLOSING` states.
-
-Only certain state transitions are possible in normal operation depending on the inputs, so it can be modeled with as a finite state machine: a simplified diagram can be found at: <http://en.wikipedia.org/wiki/File:Tcp_state_diagram_fixed_new.svg>
 
 ## Implementations
 
