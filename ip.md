@@ -20,6 +20,10 @@ IPv4 addresses have 4 bytes, while IPv6 have 16, making the number of addresses 
 
 Unless where noted otherwise, the term IP will refer in this project to either IPv4 or IPv4 and IPv6 unless explicitly written IPv6.
 
+## IPv5
+
+Already taken by a revision of some old protocol: <http://archive.oreilly.com/pub/post/what_ever_happened_to_ipv5.html>
+
 ## IP header
 
 Learn what the IP header contains:

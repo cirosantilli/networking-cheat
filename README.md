@@ -24,6 +24,7 @@ Includes both protocols and utilities. Almost all OS specifics currently only di
         1.  [SMTP](smtp.md)
         1.  [TLS](tls.md)
         1.  [URL](url.md)
+        1.  [Media protocols](media-protocols.md)
 1.  Tools
     1.  [cURL](curl.md)
     1.  [dig](dig.md)
@@ -37,6 +38,7 @@ Includes both protocols and utilities. Almost all OS specifics currently only di
     1.  [ping](ping.md)
     1.  [ssh](ssh.md)
     1.  [wget](wget.md)
+    1.  [Tor](tor.md)
 1.  Servers
     1.  [Apache](apache.md)
     1.  [Nginx](nginx.md)
