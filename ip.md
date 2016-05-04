@@ -342,14 +342,6 @@ Always refers to the current address.
 
 Common hostname associated to the loopback address.
 
-#### localhost.com
-
-Redirects to `google.com`. Try it: [localhost.com](localhost.com).
-
-<http://stackoverflow.com/questions/21768626/localhost-com-redirects-to-google-search>
-
-One theory is that a current Google employee owns it. He bought it when the web was still young and kept it ever since.
-
 ### Broadcast address
 
 #### 255.255.255.255
@@ -602,8 +594,6 @@ A few metrics:
 
 ### IPv6 address representation
 
-### IPv4 notation
-
 Rules documented at: <http://tools.ietf.org/html/rfc5952>
 
 Full addresses are:
@@ -636,15 +626,9 @@ Bad, 0's not compressed:
 
     2001:db8:0:0:0:ff00:42:8329
 
-## traceroute
+#### Percent signs on IPv6
 
-CLI utility that shows each step an IP package takes to reach a destination.
-
-The program sends the request with TTL = 1, TTL = 2, TTL = 3, and so on, and gets the address at which it stopped via ICMP time exceeded router responses.
-
-Example:
-
-    traceroute www.google.com
+Fancy stuff: <http://stackoverflow.com/questions/16561692/android-exception-handling-best-practice>
 
 ## Router
 
@@ -677,16 +661,6 @@ Routers have two interfaces each: inside and outside.
 ## Kernel routing table
 
 TODO: what is it?
-
-## route utility
-
-View kernel routing table:
-
-    route
-
-Numeric instead of names:
-
-    route -n
 
 ## Famous IPs
 

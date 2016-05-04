@@ -158,6 +158,28 @@ Impossible?
 - <http://unix.stackexchange.com/questions/31071/shell-script-for-logging-into-a-ssh-server>
 - <http://stackoverflow.com/questions/233217/pass-password-to-su-sudo-ssh>
 
+## Authentication methods
+
+<https://www.eldos.com/security/articles/1962.php?page=all>
+
+SSH supports multiple authentication methods:
+
+-   public key: the client must install the public key for a private key it owns on the server. This is the default.
+
+-   password: type the Linux username / password pair.
+
+    Use it once:
+
+        ssh -o PubkeyAuthentication=no username@hostname.com
+
+    Less setup than key if you can have an user on the server, but you must store a password on the server.
+
+    But this password can be shorter than that to encrypt your private key, as it would require an online attack.
+
+-   host-based: allow anyone from some host to login directly
+
+-   keyboard: TODO
+
 ## authorized_keys
 
 List of public keys accepted by server for login as a given user.

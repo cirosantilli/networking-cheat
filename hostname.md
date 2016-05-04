@@ -94,6 +94,8 @@ Some interesting ones:
 
 Some country ones have become generic: `.io` is a notable example, popular amongst startups as of 2014-03. Short, sounds good, reminds of IO input output.
 
+Some top level country domain names offer free domains! <https://en.wikipedia.org/wiki/.tk> <https://en.wikipedia.org/wiki/.gq>
+
 ## hosts file
 
 Located at:

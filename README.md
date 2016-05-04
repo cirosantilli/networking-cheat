@@ -14,6 +14,8 @@ Includes both protocols and utilities. Almost all OS specifics currently only di
             1.  [Port](port.md)
     1.  Internet layer
         1.  [IP](ip.md)
+            1.  [traceroute](traceroute.md)
+            1.  [route](route.md)
     1.  Application layer
         1.  [DNS](dns.md)
         1.  [DHPC](dhpc.md)

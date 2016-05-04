@@ -41,3 +41,9 @@ RTP implementation: <https://github.com/fyhertz/libstreaming/tree/94189f41351937
 <https://en.wikipedia.org/wiki/Real_Time_Messaging_Protocol>
 
 Ex Macromedia proprietary, bought by Adobe, and then semi-released.
+
+### rtmpdump
+
+Tool to work with it.
+
+- <https://en.wikipedia.org/wiki/RTMPDump>
