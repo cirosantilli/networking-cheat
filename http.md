@@ -216,6 +216,8 @@ RFC 2616 specifies the following methods:
 
 - `GET`: get information from server
 
+    Can contain a body, but it should be ignored by servers: <http://stackoverflow.com/questions/978061/http-get-with-request-body>
+
 - `HEAD`: only get header information from server
 
 - `POST`: send data to server to create new objects. E.g.: you click on the submit button of an HTML `form` with `method="post"`.

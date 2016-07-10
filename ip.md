@@ -112,6 +112,8 @@ With the advent of CIDR, a new notation was introduced that also specifies the s
 
 ### Classes
 
+Old concept, but people still use it for certain mask sizes + internal reserved addresses.
+
 Each address has two parts: network part and host part.
 
 How many bytes are the network, and how many bytes are the host was determined only by the class of the IP before CIDR, and only the following possibilities existed:
@@ -184,6 +186,8 @@ When the router sees an address that is not in the current network, e.g. Compute
 
 ### External IP
 
+RFC 1918: <https://en.wikipedia.org/wiki/IP_address#Private_addresses>
+
 If you use a router, your entire network has a single IP seen from the outside (WAN), and an internal IP for each interface seen on the private local network (LAN).
 
 You external IP may change or not depending on how your ISP operates. Most ISPs to modify home user's IPs from time to time to have more flexibility, but many give you the same external IP for at least several hours, making it possible for you to use it for simple development.
@@ -201,6 +205,10 @@ Each interface has its own IP. Therefore, a single computer can have multiple LA
 The server on the router is called **proxy server**.
 
 Internal IPs may be assigned automatically via the DHPC protocol.
+
+### Why internal LAN IPs usually start with 192
+
+<http://serverfault.com/questions/115503/why-are-class-c-ip-addresses-preferred-in-private-networks>
 
 #### Get external IP
 

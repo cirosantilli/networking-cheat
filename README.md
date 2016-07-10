@@ -9,6 +9,7 @@ Includes both protocols and utilities. Almost all OS specifics currently only di
     1.  [Physical layer](physical-layer.md)
     1.  Data link layer
         1.  [ARP](arp.md)
+        1.  [Ethernet](ethernet.md)
     1.  Transport layer
         1.  [TCP](tcp.md)
             1.  [Port](port.md)
@@ -50,5 +51,11 @@ Includes both protocols and utilities. Almost all OS specifics currently only di
     1.  [tcpdump](tcpdump.md)
     1.  [tcpflow](tcpflow.md)
     1.  [Wireshark](wireshark.md)
+1.  [Hardware](hardware.md)
 1.  [Vocabulary](vocabulary.md)
 1.  [Bibliography](bibliography.md)
+
+TODO
+
+1.  <https://en.wikipedia.org/wiki/MC-LAG>, done by Arista.
+1.  <https://en.wikipedia.org/wiki/Equal-cost_multi-path_routing> <http://ethancbanks.com/2014/04/10/the-ethernet-switching-landscape-part-05-equal-cost-multipath-ecmp/>

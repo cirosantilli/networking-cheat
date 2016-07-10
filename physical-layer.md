@@ -2,6 +2,12 @@
 
 ## Wireless protocols
 
+### 3GPP
+
+<https://en.wikipedia.org/wiki/3GPP>
+
+Series of standards that include 2G, 3G, and 4G (a term which is disputed).
+
 ### LTE
 
 ### 4G
@@ -11,6 +17,24 @@
 <https://en.wikipedia.org/wiki/LTE_%28telecommunication%29>
 
 Wide area.
+
+Is an incompatible fork from the 3GPP 4G, causing confusion
+
+### 3G
+
+### UMTS
+
+TODO
+
+#### WCDMA
+
+Part of UMTS?
+
+### 2G
+
+### GMS
+
+TODO dates
 
 ### Wi-Fi
 

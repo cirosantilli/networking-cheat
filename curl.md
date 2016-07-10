@@ -236,3 +236,11 @@ Get only response for POST: <http://stackoverflow.com/questions/10060098/getting
 Get only status of request: <http://superuser.com/questions/272265/getting-curl-to-output-http-status-code>
 
 With `HEAD` it is easy through `-I`.
+
+## Keep alive
+
+Yes by default: <http://serverfault.com/questions/199434/how-do-i-make-curl-use-keepalive-from-the-command-line>
+
+## Parallel downloads
+
+Seems no, `xargs -P` it: <http://stackoverflow.com/questions/8634109/parallel-download-using-curl-command-line-utility>
