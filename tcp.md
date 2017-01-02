@@ -130,7 +130,7 @@ The 3-way handshake sets that process up. It uses 3 packages, because that is th
 
 - package 1: SYN: sender sends his package ID to synchronize
 - package 2: ACK+SYN: receiver sends his package ID (SYN) and acknowledges the receiver's (ACK)
-- package 3: SYN: sender acknowledges the receiver's ID
+- package 3: ACK: sender acknowledges the receiver's ID
 
 So 1-2 sets up the data sending channel, and 2-3 sets up the channel back.
 
